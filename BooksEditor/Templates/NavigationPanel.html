@@ -1,0 +1,16 @@
+﻿<ul class="nav" id="side-menu">
+    {{#navigation}}
+    <li>
+        <a on-click="onMenuButtonClick" href="#!{{Url}}"><i class="fa {{ImageClass}}"></i> <span class="nav-label">{{Title}}</span></a>
+        {{#if (this.Items)}}
+        <ul class="nav nav-second-level collapse">
+            {{#this.Items}}
+            <li>
+                <a on-click="onMenuButtonClick" href="#!{{Url}}">{{Title}}</a>
+            </li>
+            {{/this.Items}}
+        </ul>
+        {{/if}}
+    </li>
+    {{/navigation}}
+</ul>

@@ -1,0 +1,28 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Books Editor | @ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @RenderSection("styles", required: false)
+</head>
+<body>
+    <div id="wrapper">
+        
+        @Html.Partial("_Navigation")
+
+        <div id="page-wrapper">
+
+            @RenderBody()
+
+        </div>
+
+    </div>
+
+    @Scripts.Render("~/bundles/main")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
