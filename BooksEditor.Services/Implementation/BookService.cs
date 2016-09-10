@@ -4,21 +4,46 @@ using System.Linq.Dynamic;
 using BooksEditor.Data;
 using BooksEditor.Data.Models;
 using BooksEditor.Services.Models;
+using AutoMapper;
 
 namespace BooksEditor.Services
 {
     public class BookService : IBookService
     {
         private readonly IBookRepository _bookRepository;
+        private readonly IAuthorRepository _authorRepository;
+        private readonly IMapper _mapper;
 
-        public BookService(IBookRepository bookRepository)
+        public BookService(IBookRepository bookRepository, IAuthorRepository authorRepository)
         {
             _bookRepository = bookRepository;
+            _authorRepository = authorRepository;
+
+            var autoMapConfig = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<Book, BookModel>()
+                    .ForMember(dest => dest.Authors, opt => opt.Ignore())
+                    .AfterMap((src, dest) =>
+                    {
+                        dest.Authors = src.Authors.Select(a => a.Id).ToArray();
+                    });
+
+                cfg.CreateMap<BookModel, Book>()
+                    .ForMember(dest => dest.Authors, opt => opt.Ignore())
+                    .AfterMap((src, dest) =>
+                    {
+                        dest.Authors = _authorRepository.Authors.Where(a => src.Authors.Contains(a.Id)).ToList();
+                    });
+            });
+
+            _mapper = autoMapConfig.CreateMapper();
         }
 
-        public Book GetBook(int id)
+        public BookModel GetBook(int id)
         {
-            return _bookRepository.GetBook(id);
+            var bookEntity = _bookRepository.GetBook(id);
+
+            return _mapper.Map<BookModel>(bookEntity);
         }
 
         public IEnumerable<Book> GetBookList(BookListRequest request)
@@ -45,11 +70,25 @@ namespace BooksEditor.Services
             return books;
         }
 
-        public ActionResultModel SaveBook(Book book)
+        public ActionResultModel SaveBook(BookModel bookModel)
         {
+            var bookEntity = _mapper.Map<Book>(bookModel);
+
+            ActionResultModel result = new ActionResultModel();
+
             // Check if book have minimum one author
-            _bookRepository.Save(book);
-            return new ActionResultModel { IsSuccess = true };
+            if (bookEntity.Authors.Count == 0)
+            {
+                result.IsSuccess = false;
+                result.Errors.Add("Book must have at least one author");
+            }
+            else
+            {
+                _bookRepository.Save(bookEntity);
+                result.IsSuccess = true;
+            }
+
+            return result;
         }
 
         public ActionResultModel DeleteBook(int id)

@@ -19,7 +19,7 @@
             {{#book}}
             <div class="row">
                 <div class="form-group">
-                    <label class="col-sm-3 control-label">Title</label>
+                    <label class="col-sm-3 control-label">Title *</label>
                     <div class="col-sm-6">
                         <input name="title" type="text" class="form-control" value="{{.Title}}" data-val="true" data-val-required="Title can not be empty" maxlength="30" />
                     </div>
@@ -28,12 +28,57 @@
 
             <div class="row">
                 <div class="form-group">
-                    <label class="col-sm-3 control-label">Publication year</label>
+                    <label class="col-sm-3 control-label">Authors *</label>
                     <div class="col-sm-6">
-                        <input name="year" type="text" class="form-control" value="{{.PublicationYear}}" data-val="true" data-val-required="Surname can not be empty" maxlength="30" />
+                        <select decorator="chosen:authors" name="authors" data-placeholder="Choose authors..." class="chosen-select hidden form-control" multiple value="{{book.Authors}}"
+                                data-val="true" data-val-required="Select at least one author" id="authors">
+                            <option selected disabled></option>
+                            {{#each allAuthors}}
+                                <option value="{{.Id}}">{{.Name}} {{.Surname}}</option>
+                            {{/each}}
+                        </select>
+                        <label for="authors" generated="true" class="error"></label>
                     </div>
                 </div>
             </div>
+
+            <div class="row">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Page count *</label>
+                    <div class="col-sm-6">
+                        <input name="pagecount" type="text" class="form-control" value="{{.PageCount}}" data-val="true" data-val-required="Page count can not be empty" min="1" max="10000" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Publishing house</label>
+                    <div class="col-sm-6">
+                        <input name="publishinghouse" type="text" class="form-control" value="{{.PublishingHouse}}" data-val="true" maxlength="30" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Publication year *</label>
+                    <div class="col-sm-6">
+                        <input name="publicationyear" type="text" class="form-control" value="{{.PublicationYear}}" data-val="true" data-val-required="Publication year can not be empty" min="1800" max="2100" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">ISBN</label>
+                    <div class="col-sm-6">
+                        <input name="isbn" type="text" class="form-control" value="{{.ISBN}}" data-val="true" maxlength="13" />
+                    </div>
+                </div>
+            </div>
+
+            <!-- Here will be image path input field -->
             {{/book}}
 
             <div class="hr-line-dashed"></div>

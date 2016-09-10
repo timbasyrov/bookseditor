@@ -23,6 +23,7 @@ namespace BooksEditor
                 "~/Scripts/jquery.validate.js",
                 "~/Scripts/jquery.validate.unobtrusive.js",
                 "~/Scripts/jquery.validate.unobtrusive.dynamic.js",
+                "~/Scripts/chosen.jquery.js",
                 "~/Scripts/modernizr-*",
                 "~/Scripts/bootstrap.js",
                 "~/Scripts/underscore.js",
@@ -31,6 +32,9 @@ namespace BooksEditor
                 "~/Scripts/metisMenu.js",
                 "~/Scripts/utils/Url.js"
                 ).ForceOrdered());
+
+            bundles.Add(new StyleBundle("~/Content/plugins/bootstrap-chosen/css").Include(
+                "~/Content/plugins/bootstrap-chosen/bootstrap-chosen.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/routing").Include(
                 "~/Scripts/routes/page.js",

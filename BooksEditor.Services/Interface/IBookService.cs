@@ -6,9 +6,9 @@ namespace BooksEditor.Services
 {
     public interface IBookService
     {
-        Book GetBook(int id);
+        BookModel GetBook(int id);
         IEnumerable<Book> GetBookList(BookListRequest request);
-        ActionResultModel SaveBook(Book book);
+        ActionResultModel SaveBook(BookModel book);
         ActionResultModel DeleteBook(int id);
     }
 }

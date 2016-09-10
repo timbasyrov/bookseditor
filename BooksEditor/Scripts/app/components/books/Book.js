@@ -7,6 +7,7 @@
             sectionTitle: 'Edit book',
             id: null,
             book: {},
+            allAuthors: []
         }
     },
     
@@ -19,11 +20,37 @@
             'onCancelButton':           $.proxy(it.onCancelButton, it),
         });
 
+        it.decorators.chosen.type.authors = {
+            width: '500px',
+            onchange: function (event, params) {
+                $('#book').validate().element('#authors');
+            }
+        }
+
         if (params && params.id) {
             it.set('id', params.id);
         }
 
+        it.set('allAuthors', it.getAuthors());
+
         it.loadBook();
+    },
+
+    getAuthors: function () {
+        var it = this;
+
+        it.apiUrlGet('/api/author', null, function (data) {
+            if (!data)
+                return;
+
+            var authors = [];
+
+            data.forEach(function (item) {
+                authors.push({ Id: item.Id, Name: item.Name, Surname: item.Surname })
+            });
+
+            it.set('allAuthors', authors);
+        });
     },
 
     loadBook: function () {
@@ -34,7 +61,7 @@
             it.set('sectionTitle', 'Add book');
         }
         else {
-            $.getJSON('/api/book/' + id, null, function (data) {
+            it.apiUrlGet('/api/book/' + id, null, function (data) {
                 it.set('book', data);
             });
         }

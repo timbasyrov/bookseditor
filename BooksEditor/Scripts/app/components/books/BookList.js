@@ -6,8 +6,8 @@
         return {
             filter: 
                 {
-                    TitleOrder: '',
-                    YearOrder: '',
+                    TitleOrder: null,
+                    YearOrder: null,
                 },
             Items: [],
         };
@@ -69,21 +69,21 @@
         var titleOrder = it.get('filter.TitleOrder');
 
         switch (titleOrder) {
-            case '':
+            case null:
                 titleOrder = 'asc';
                 break;
             case 'asc':
                 titleOrder = 'desc';
                 break;
             case 'desc':
-                titleOrder = '';
+                titleOrder = null;
                 break;
         }
 
         it.set('filter.TitleOrder', titleOrder);
-        it.set('filter.YearOrder', '');
+        it.set('filter.YearOrder', null);
         sessionStorage.setItem('TitleOrder', titleOrder);
-        sessionStorage.setItem('YearOrder', '');
+        sessionStorage.setItem('YearOrder', null);
 
         it.getBookList();
     },
@@ -94,21 +94,21 @@
         var yearOrder = it.get('filter.YearOrder');
 
         switch (yearOrder) {
-            case '':
+            case null:
                 yearOrder = 'asc';
                 break;
             case 'asc':
                 yearOrder = 'desc';
                 break;
             case 'desc':
-                yearOrder = '';
+                yearOrder = null;
                 break;
         }
 
         it.set('filter.YearOrder', yearOrder);
-        it.set('filter.TitleOrder', '');
+        it.set('filter.TitleOrder', null);
         sessionStorage.setItem('YearOrder', yearOrder);
-        sessionStorage.setItem('TitleOrder', '');
+        sessionStorage.setItem('TitleOrder', null);
 
         it.getBookList();
     },

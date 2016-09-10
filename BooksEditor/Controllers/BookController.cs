@@ -22,13 +22,13 @@ namespace BooksEditor.Controllers
         }
 
         [HttpGet]
-        public Book GetBook(int id)
+        public BookModel GetBook(int id)
         {
             return _bookService.GetBook(id);
         }
 
         [HttpPost]
-        public ActionResultModel SaveBook([FromBody]Book book)
+        public ActionResultModel SaveBook([FromBody]BookModel book)
         {
             return _bookService.SaveBook(book);
         }
