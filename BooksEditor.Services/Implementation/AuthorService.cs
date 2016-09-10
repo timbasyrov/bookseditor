@@ -3,6 +3,7 @@ using BooksEditor.Data;
 using BooksEditor.Data.Models;
 using BooksEditor.Services.Models;
 using System.Linq;
+using AutoMapper;
 
 namespace BooksEditor.Services
 {
@@ -10,26 +11,37 @@ namespace BooksEditor.Services
     {
         private readonly IAuthorRepository _authorRepository;
         private readonly IBookRepository _bookRepository;
+        private readonly IMapper _mapper;
 
         public AuthorService(IAuthorRepository authorRepository, IBookRepository bookRepository)
         {
             _authorRepository = authorRepository;
             _bookRepository = bookRepository;
+
+            var autoMapConfig = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<Author, AuthorModel>();
+                cfg.CreateMap<AuthorModel, Author>();
+            });
+
+            _mapper = autoMapConfig.CreateMapper();
         }
 
-        public Author GetAuthor(int id)
+        public AuthorModel GetAuthor(int id)
         {
-            return _authorRepository.GetAuthor(id);
+            return _mapper.Map<AuthorModel>(_authorRepository.GetAuthor(id));
         }
 
-        public IEnumerable<Author> GetAuthorList()
+        public IEnumerable<AuthorModel> GetAuthorList()
         {
-            return _authorRepository.Authors;
+            return  _mapper.Map<IEnumerable<AuthorModel>>(_authorRepository.Authors);
         }
 
-        public ActionResultModel SaveAuthor(Author author)
+        public ActionResultModel SaveAuthor(AuthorModel authorModel)
         {
-            _authorRepository.Save(author);
+            var authorEntity = _mapper.Map<Author>(authorModel);
+
+            _authorRepository.Save(authorEntity);
             return new ActionResultModel { IsSuccess = true };
         }
 
@@ -40,7 +52,7 @@ namespace BooksEditor.Services
             if (_bookRepository.Books.Any(b => b.Authors.Any(a => a.Id == id) && b.Authors.Count == 1))
             {
                 result.IsSuccess = false;
-                result.Errors.Add("This author has a books, where he is the sole author, so it can not be removed");
+                result.Errors.Add("This author has a book(s), where he is the sole author, so it can not be removed");
             }
             else
             {

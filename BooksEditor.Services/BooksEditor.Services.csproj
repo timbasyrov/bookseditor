@@ -35,6 +35,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Linq.Dynamic, Version=1.0.5840.25917, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Linq.Dynamic.1.0.6\lib\net40\System.Linq.Dynamic.dll</HintPath>
@@ -48,11 +49,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Attributes\ISBNValidationAttribute.cs" />
     <Compile Include="Implementation\BookService.cs" />
     <Compile Include="Implementation\AuthorService.cs" />
     <Compile Include="Interface\IBookService.cs" />
     <Compile Include="Interface\IAuthorService.cs" />
     <Compile Include="Models\ActionResultModel.cs" />
+    <Compile Include="Models\AuthorModel.cs" />
+    <Compile Include="Models\BookListItemModel.cs" />
     <Compile Include="Models\BookModel.cs" />
     <Compile Include="Models\BookListRequest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

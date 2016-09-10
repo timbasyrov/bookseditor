@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Web.Http;
-using BooksEditor.Data.Models;
 using BooksEditor.Services;
 using BooksEditor.Services.Models;
 
@@ -16,7 +15,7 @@ namespace BooksEditor.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<Book> GetBookList([FromUri]BookListRequest request)
+        public IEnumerable<BookListItemModel> GetBookList([FromUri]BookListRequest request)
         {
             return _bookService.GetBookList(request);
         }

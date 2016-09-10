@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Web.Http;
-using BooksEditor.Data.Models;
 using BooksEditor.Services;
 using BooksEditor.Services.Models;
 
@@ -16,19 +15,19 @@ namespace BooksEditor.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<Author> GetAuthorList()
+        public IEnumerable<AuthorModel> GetAuthorList()
         {
             return _authorService.GetAuthorList();
         }
 
         [HttpGet]
-        public Author GetAuthor(int id)
+        public AuthorModel GetAuthor(int id)
         {
             return _authorService.GetAuthor(id);
         }
 
         [HttpPost]
-        public ActionResultModel SaveAuthor([FromBody]Author author)
+        public ActionResultModel SaveAuthor([FromBody]AuthorModel author)
         {
             return _authorService.SaveAuthor(author);
         }

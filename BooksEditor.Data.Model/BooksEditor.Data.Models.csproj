@@ -7,8 +7,8 @@
     <ProjectGuid>{C852D484-6B7F-4B83-A58D-205D5BA28EC8}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BooksEditor.Data.Model</RootNamespace>
-    <AssemblyName>BooksEditor.Data.Model</AssemblyName>
+    <RootNamespace>BooksEditor.Data.Models</RootNamespace>
+    <AssemblyName>BooksEditor.Data.Models</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

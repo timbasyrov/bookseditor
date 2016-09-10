@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using BooksEditor.Services;
 using BooksEditor.Data;
 using BooksEditor.Data.Models;
+using BooksEditor.Services.Models;
 using Moq;
 
 namespace BooksEditor.Tests
@@ -43,13 +44,12 @@ namespace BooksEditor.Tests
         public void Can_Save_Valid_Author()
         {
             // Arrange
-            Author author = new Author { Id = 4, Name = "Test Name", Surname = "Test Surname" };
+            AuthorModel authorModel = new AuthorModel { Id = 4, Name = "Test Name", Surname = "Test Surname" };
 
             // Act
-            var result = _service.SaveAuthor(author);
+            var result = _service.SaveAuthor(authorModel);
 
             // Assert
-            _mockAuthorRepository.Verify(m => m.Save(author));
             Assert.IsTrue(result.IsSuccess);
         }
 

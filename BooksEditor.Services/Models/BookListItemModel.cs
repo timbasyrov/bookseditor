@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 
-namespace BooksEditor.Data.Models
+namespace BooksEditor.Services.Models
 {
-    public class Book
+    public class BookListItemModel
     {
         public int Id { get; set; }
         public string Title { get; set; }
-        public IList<Author> Authors { get; set; }
+        public IList<AuthorModel> Authors { get; set; }
         public int PageCount { get; set; }
         public string PublishingHouse { get; set; }
         public int PublicationYear { get; set; }

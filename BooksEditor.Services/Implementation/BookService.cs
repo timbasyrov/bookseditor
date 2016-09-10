@@ -34,6 +34,15 @@ namespace BooksEditor.Services
                     {
                         dest.Authors = _authorRepository.Authors.Where(a => src.Authors.Contains(a.Id)).ToList();
                     });
+
+                cfg.CreateMap<Author, AuthorModel>();
+
+                cfg.CreateMap<Book, BookListItemModel>()
+                    .ForMember(dest => dest.Authors, opt => opt.Ignore())
+                    .AfterMap((src, dest) =>
+                    {
+                        dest.Authors = _mapper.Map<IEnumerable<AuthorModel>>(src.Authors).ToList();
+                    });
             });
 
             _mapper = autoMapConfig.CreateMapper();
@@ -46,10 +55,9 @@ namespace BooksEditor.Services
             return _mapper.Map<BookModel>(bookEntity);
         }
 
-        public IEnumerable<Book> GetBookList(BookListRequest request)
+        public IEnumerable<BookListItemModel> GetBookList(BookListRequest request)
         {
             var books = _bookRepository.Books;
-
 
             switch (request.TitleOrder)
             {
@@ -67,7 +75,7 @@ namespace BooksEditor.Services
                     break;
             }
 
-            return books;
+            return _mapper.Map<IEnumerable<BookListItemModel>>(books);
         }
 
         public ActionResultModel SaveBook(BookModel bookModel)

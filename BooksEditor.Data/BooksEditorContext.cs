@@ -21,9 +21,10 @@ namespace BooksEditor.Data
             Authors.Add(author3);
 
             Books = new List<Book>();
-            Books.Add(new Book { Id = 1, Title = "Title 1", Authors = new List<Author> { author1, author2 }, PageCount = 100, PublicationYear = 1999, PublishingHouse = "Microsoft", ISBN = "0-987-654-32-1-0" });
-            Books.Add(new Book { Id = 2, Title = "Title 2", Authors = new List<Author> { author1 }, PageCount = 200, PublicationYear = 2005, PublishingHouse = "O'Reilly", ISBN = "0-789-456-23-0-1" });
-            Books.Add(new Book { Id = 3, Title = "Title 3", Authors = new List<Author> { author2, author3 }, PageCount = 300, PublicationYear = 2009, PublishingHouse = "Williams", ISBN = "9-785-542-21-1-9" });
+            Books.Add(new Book { Id = 1, Title = "Title 1", Authors = new List<Author> { author1, author2 }, PageCount = 100, PublicationYear = 1999, PublishingHouse = "Microsoft Press", ISBN = "0-943396-04-2" });
+            Books.Add(new Book { Id = 2, Title = "Title 2", Authors = new List<Author> { author1 }, PageCount = 200, PublicationYear = 2007, PublishingHouse = "O'Reilly", ISBN = "978-0-557-50469-5" });
+            Books.Add(new Book { Id = 3, Title = "Title 3", Authors = new List<Author> { author2, author3 }, PageCount = 300, PublicationYear = 2009, PublishingHouse = "Williams", ISBN = "978-1-56619-909-4" });
+            Books.Add(new Book { Id = 4, Title = "Title 4", Authors = new List<Author> { author2 }, PageCount = 296, PublicationYear = 2005, PublishingHouse = "Apress", ISBN = "1-4028-9462-7" });
         }
 
         public static BooksEditorContext GetInstance()
