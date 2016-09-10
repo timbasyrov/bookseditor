@@ -4,7 +4,7 @@
     _navigationPanel: null,
     template: '<Router componentName="{{componentName}}"/>',
     data: {
-        componentName: 'AuthorList'
+        componentName: 'BookList'
     },
     oninit: function () {
         var it = this;
@@ -14,14 +14,14 @@
             data: {
                 navigation: [
                         {
-                            Title: 'Authors',
-                            ImageClass: 'fa-files-o',
-                            Url: '/authors/list'
-                        },
-                        {
                             Title: 'Books',
                             ImageClass: 'fa-edit',
                             Url: '/books/list'
+                        },
+                        {
+                            Title: 'Authors',
+                            ImageClass: 'fa-files-o',
+                            Url: '/authors/list'
                         }
                     ]
                 }
@@ -46,7 +46,10 @@
 
 var routeConfig = new RouteConfiguration();
 
-routeConfig.AddRoute('/authors/list', 'AuthorList', true);
+routeConfig.AddRoute('/books/list', 'BookList', true);
+routeConfig.AddRoute('/books/:id', 'Book');
+routeConfig.AddRoute('/books/', 'Book');
+routeConfig.AddRoute('/authors/list', 'AuthorList');
 routeConfig.AddRoute('/authors/:id', 'Author');
 routeConfig.AddRoute('/authors/', 'Author');
 

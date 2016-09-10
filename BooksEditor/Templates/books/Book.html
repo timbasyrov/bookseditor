@@ -15,26 +15,26 @@
             </ul>
         </div>
         {{/if}}
-        <form id="author" decorator="unobtrusive">
-            {{#author}}
+        <form id="book" decorator="unobtrusive">
+            {{#book}}
             <div class="row">
                 <div class="form-group">
-                    <label class="col-sm-3 control-label">Name</label>
+                    <label class="col-sm-3 control-label">Title</label>
                     <div class="col-sm-6">
-                        <input name="name" type="text" class="form-control" value="{{.Name}}" data-val="true" data-val-required="Name can not be empty" maxlength="30" />
+                        <input name="title" type="text" class="form-control" value="{{.Title}}" data-val="true" data-val-required="Title can not be empty" maxlength="30" />
                     </div>
                 </div>
             </div>
 
             <div class="row">
                 <div class="form-group">
-                    <label class="col-sm-3 control-label">Surname</label>
+                    <label class="col-sm-3 control-label">Publication year</label>
                     <div class="col-sm-6">
-                        <input name="surname" type="text" class="form-control" value="{{.Surname}}" data-val="true" data-val-required="Surname can not be empty" maxlength="30" />
+                        <input name="year" type="text" class="form-control" value="{{.PublicationYear}}" data-val="true" data-val-required="Surname can not be empty" maxlength="30" />
                     </div>
                 </div>
             </div>
-            {{/author}}
+            {{/book}}
 
             <div class="hr-line-dashed"></div>
 

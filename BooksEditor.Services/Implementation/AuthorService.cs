@@ -9,10 +9,12 @@ namespace BooksEditor.Services
     public class AuthorService : IAuthorService
     {
         private readonly IAuthorRepository _authorRepository;
+        private readonly IBookRepository _bookRepository;
 
-        public AuthorService(IAuthorRepository authorRepository)
+        public AuthorService(IAuthorRepository authorRepository, IBookRepository bookRepository)
         {
             _authorRepository = authorRepository;
+            _bookRepository = bookRepository;
         }
 
         public Author GetAuthor(int id)
@@ -20,31 +22,9 @@ namespace BooksEditor.Services
             return _authorRepository.GetAuthor(id);
         }
 
-        public IEnumerable<Author> GetAuthorList(AuthorListRequest request)
+        public IEnumerable<Author> GetAuthorList()
         {
-            var authors = _authorRepository.Authors;
-
-            switch (request.NameOrder)
-            {
-                case "asc" :
-                    authors = authors.OrderBy(a => a.Name);
-                    break;
-                case "desc":
-                    authors = authors.OrderByDescending(a => a.Name);
-                    break;
-            }
-
-            switch (request.SurnameOrder)
-            {
-                case "asc":
-                    authors = authors.OrderBy(a => a.Surname);
-                    break;
-                case "desc":
-                    authors = authors.OrderByDescending(a => a.Surname);
-                    break;
-            }
-
-            return authors;
+            return _authorRepository.Authors;
         }
 
         public ActionResultModel SaveAuthor(Author author)
@@ -55,9 +35,20 @@ namespace BooksEditor.Services
 
         public ActionResultModel DeleteAuthor(int id)
         {
-            // TODO: Check if author have books where he is only one author
-            _authorRepository.Delete(id);
-            return new ActionResultModel { IsSuccess = true };
+            ActionResultModel result = new ActionResultModel();
+            // Author has books where he is sole author
+            if (_bookRepository.Books.Any(b => b.Authors.Any(a => a.Id == id) && b.Authors.Count == 1))
+            {
+                result.IsSuccess = false;
+                result.Errors.Add("This author has a books, where he is the sole author, so it can not be removed");
+            }
+            else
+            {
+                _authorRepository.Delete(id);
+                result.IsSuccess = true;
+            }
+
+            return result;
         }
     }
 }

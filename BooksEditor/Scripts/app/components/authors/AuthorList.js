@@ -4,11 +4,6 @@
     data: function () {
         var it = this;
         return {
-            filter: 
-                {
-                    NameOrder: '',
-                    SurnameOrder: '',
-                },
             Items: [],
         };
     },
@@ -19,17 +14,8 @@
         it.on({
             'onAuthorEditButtonClick'           : $.proxy(it.onAuthorEditButtonClick, it),
             'onAddAuthorButtonClick'            : $.proxy(it.onAddAuthorButtonClick, it),
-            'onDeleteButtonClick'               : $.proxy(it.onDeleteButtonClick, it),
-            'onNameLabelClick'                  : $.proxy(it.onNameLabelClick, it)
+            'onDeleteButtonClick'               : $.proxy(it.onDeleteButtonClick, it)
         });
-
-        if (sessionStorage.getItem('NameOrder')) {
-            it.set('filter.NameOrder', sessionStorage.getItem('NameOrder'));
-        }
-
-        if (sessionStorage.getItem('SurnameOrder')) {
-            it.set('filter.SurnameOrder', sessionStorage.getItem('SurnameOrder'));
-        }
 
         it.getAuthorList();
     },
@@ -62,33 +48,10 @@
         });
     },
 
-    onNameLabelClick: function () {
-        var it = this;
-        var nameOrder = it.get('filter.NameOrder');
-
-        switch (nameOrder) {
-            case '':
-                nameOrder = 'asc';
-                break;
-            case 'asc':
-                nameOrder = 'desc';
-                break;
-            case 'desc':
-                nameOrder = '';
-                break;
-        }
-
-        it.set('filter.NameOrder', nameOrder);
-        sessionStorage.setItem('NameOrder', nameOrder);
-        it.getAuthorList();
-    },
-
     getAuthorList: function () {
         var it = this;
 
-        var filter = it.get("filter");
-
-        it.apiUrlGet('/api/author', filter, function (data) {
+        it.apiUrlGet('/api/author', null, function (data) {
             it.set('Items', data);
         })
     }

@@ -1,13 +1,13 @@
 ﻿<div class="row">
     <div class="col-lg-12">
-        <h1 class="page-header">Authors</h1>
+        <h1 class="page-header">Books</h1>
     </div>
 </div>
 
 <div class="row">
     <div class="col-lg-12">
         <div class="row">
-            <button class="btn btn-success" on-click="onAddAuthorButtonClick">Add author</button>
+            <button class="btn btn-success" on-click="onAddBookButtonClick">Add book</button>
         </div>
 
         <div class="table-responsive">
@@ -15,8 +15,12 @@
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>Name</th>
-                        <th>Surname</th>
+                        <th on-click="onTitleLabelClick" class="clickable">Title {{#if (filter.TitleOrder == 'asc')}}&#9652;{{elseif (filter.TitleOrder == 'desc')}}&#9662;{{else}}{{/if}}</th>
+                        <th>Authors</th>
+                        <th>Page count</th>
+                        <th>Publishing house</th>
+                        <th on-click="onYearLabelClick" class="clickable">Publication year {{#if (filter.YearOrder == 'asc')}}&#9652;{{elseif (filter.YearOrder == 'desc')}}&#9662;{{else}}{{/if}}</th>
+                        <th>ISBN</th>
                         <th colspan="2"></th>
                     </tr>
                 </thead>
@@ -24,9 +28,18 @@
                     {{#each Items}}
                     <tr>
                         <td>{{.Id}}</td>
-                        <td>{{.Name}}</td>
-                        <td>{{.Surname}}</td>
-                        <td><button class="btn btn-primary btn-sm" on-click="onAuthorEditButtonClick">Edit</button></td>
+                        <td>{{.Title}}</td>
+                        <td>
+                            {{#each .Authors}}
+                            {{.Name}} {{.Surname}}
+                            <br />
+                            {{/each}}
+                        </td>
+                        <td>{{.PageCount}}</td>
+                        <td>{{.PublishingHouse}}</td>
+                        <td>{{.PublicationYear}}</td>
+                        <td>{{.ISBN}}</td>
+                        <td><button class="btn btn-primary btn-sm" on-click="onBookEditButtonClick">Edit</button></td>
                         <td><button class="btn btn-danger btn-sm" on-click="onDeleteButtonClick">Delete</button></td>
                     </tr>
                     {{/each}}

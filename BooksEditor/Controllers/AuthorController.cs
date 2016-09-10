@@ -16,9 +16,9 @@ namespace BooksEditor.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<Author> GetAuthorList([FromUri]AuthorListRequest request)
+        public IEnumerable<Author> GetAuthorList()
         {
-            return _authorService.GetAuthorList(request);
+            return _authorService.GetAuthorList();
         }
 
         [HttpGet]

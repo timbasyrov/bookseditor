@@ -10,7 +10,7 @@ namespace BooksEditor.Data
 
         public AuthorRepository()
         {
-            _context = new BooksEditorContext();
+            _context = BooksEditorContext.GetInstance();
         }
 
         public IEnumerable<Author> Authors
@@ -27,6 +27,10 @@ namespace BooksEditor.Data
 
             if (author != null)
             {
+                foreach (var item in _context.Books.Where(b => b.Authors.Contains(author)))
+                {
+                    item.Authors.Remove(author);
+                }
                 _context.Authors.Remove(author);
             }
         }

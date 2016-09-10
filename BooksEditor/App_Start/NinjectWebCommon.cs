@@ -63,8 +63,10 @@ namespace BooksEditor.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            kernel.Bind<IAuthorRepository>().To<AuthorRepository>().InSingletonScope();
+            kernel.Bind<IAuthorRepository>().To<AuthorRepository>();
+            kernel.Bind<IBookRepository>().To<BookRepository>();
             kernel.Bind<IAuthorService>().To<AuthorService>();
+            kernel.Bind<IBookService>().To<BookService>();
         }
     }
 }

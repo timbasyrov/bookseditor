@@ -1,11 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using BooksEditor.Data.Models;
 
 namespace BooksEditor.Data
 {
     public class BooksEditorContext
     {
-        public BooksEditorContext()
+        private static BooksEditorContext _instance;
+        public IList<Author> Authors { get; set; }
+        public IList<Book> Books { get; set; }
+
+        private BooksEditorContext()
         {
             Authors = new List<Author>();
             Author author1 = new Author { Id = 1, Name = "Name 1", Surname = "Surname 1" };
@@ -21,7 +26,13 @@ namespace BooksEditor.Data
             Books.Add(new Book { Id = 3, Title = "Title 3", Authors = new List<Author> { author2, author3 }, PageCount = 300, PublicationYear = 2009, PublishingHouse = "Williams", ISBN = "9-785-542-21-1-9" });
         }
 
-        public IList<Author> Authors { get; set; }
-        public IList<Book> Books { get; set; }
+        public static BooksEditorContext GetInstance()
+        {
+            if (_instance == null)
+            {
+                _instance = new BooksEditorContext();
+            }
+            return _instance;
+        }
     }
 }

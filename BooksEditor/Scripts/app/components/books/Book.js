@@ -1,12 +1,12 @@
-﻿Ractive.components.Author = Ractive.extend({
-    template: Url.GetTemplate('/Templates/authors/Author.html'),
+﻿Ractive.components.Book = Ractive.extend({
+    template: Url.GetTemplate('/Templates/books/Book.html'),
     data: function () {
         var it = this;
 
         return {
-            sectionTitle: 'Edit author',
+            sectionTitle: 'Edit book',
             id: null,
-            author: {},
+            book: {},
         }
     },
     
@@ -15,27 +15,27 @@
         var params = it.get('params');
 
         it.on({
-            'onSaveButton': $.proxy(it.onSaveButton, it),
-            'onCancelButton': $.proxy(it.onCancelButton, it),
+            'onSaveButton':             $.proxy(it.onSaveButton, it),
+            'onCancelButton':           $.proxy(it.onCancelButton, it),
         });
 
         if (params && params.id) {
             it.set('id', params.id);
         }
 
-        it.loadAuthor();
+        it.loadBook();
     },
 
-    loadAuthor: function () {
+    loadBook: function () {
         var it = this;
         var id = it.get('id');
 
         if (id == null) {
-            it.set('sectionTitle', 'Add author');
+            it.set('sectionTitle', 'Add book');
         }
         else {
-            $.getJSON('/api/author/' + id, null, function (data) {
-                it.set('author', data);
+            $.getJSON('/api/book/' + id, null, function (data) {
+                it.set('book', data);
             });
         }
     },
@@ -43,15 +43,15 @@
     onSaveButton: function () {
         var it = this;
 
-        $.validator.unobtrusive.parseDynamicContent($('#author'));
+        $.validator.unobtrusive.parseDynamicContent($('#book'));
 
-        if ($('#author').valid()) {
-            var params = it.get('author');
+        if ($('#book').valid()) {
+            var params = it.get('book');
 
-            it.apiUrlPost('/api/author/', params, function (data) {
+            it.apiUrlPost('/api/book/', params, function (data) {
                 if (data.IsSuccess) {
                     it.set('errors', null);
-                    it.NavigateTo('/authors/list');
+                    it.NavigateTo('/books/list');
                 } else {
                     it.set('errors', data.Errors);
                     // Operation failed
@@ -67,6 +67,6 @@
     onCancelButton: function () {
         var it = this;
 
-        it.NavigateTo('/authors/list');
+        it.NavigateTo('/books/list');
     },
 });
