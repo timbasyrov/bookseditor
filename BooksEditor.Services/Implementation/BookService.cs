@@ -101,8 +101,20 @@ namespace BooksEditor.Services
 
         public ActionResultModel DeleteBook(int id)
         {
-            _bookRepository.Delete(id);
-            return new ActionResultModel { IsSuccess = true };
+            ActionResultModel result = new ActionResultModel();
+
+            if (_bookRepository.GetBook(id) != null)
+            {
+                _bookRepository.Delete(id);
+                result.IsSuccess = true;
+            }
+            else
+            {
+                result.IsSuccess = false;
+                result.Errors.Add("Book entity not found");
+            }
+
+            return result;
         }
     }
 }

@@ -20,6 +20,10 @@ namespace BooksEditor.Services.Attributes
                     case 13: result = IsValidIsbn13(isbn); break;
                 }
             }
+            else
+            {
+                result = true;
+            }
 
             if (result)
             {

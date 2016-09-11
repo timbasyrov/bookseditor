@@ -47,7 +47,7 @@ namespace BooksEditor.Services
 
         public ActionResultModel DeleteAuthor(int id)
         {
-            ActionResultModel result = new ActionResultModel();
+            ActionResultModel result = new ActionResultModel() { IsSuccess = false };
             // Author has books where he is sole author
             if (_bookRepository.Books.Any(b => b.Authors.Any(a => a.Id == id) && b.Authors.Count == 1))
             {
@@ -56,8 +56,15 @@ namespace BooksEditor.Services
             }
             else
             {
-                _authorRepository.Delete(id);
-                result.IsSuccess = true;
+                if (_authorRepository.GetAuthor(id) != null)
+                {
+                    _authorRepository.Delete(id);
+                    result.IsSuccess = true;
+                }
+                else
+                {
+                    result.Errors.Add("Author entity not found");
+                }
             }
 
             return result;
