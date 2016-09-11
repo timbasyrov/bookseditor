@@ -34,8 +34,11 @@
             it.set('sectionTitle', 'Add author');
         }
         else {
-            $.getJSON('/api/author/' + id, null, function (data) {
+            it.apiUrlGet('/api/author/' + id, null, function (data) {
                 it.set('author', data);
+            }, function (data) {
+                // Request error
+                console.log(data);
             });
         }
     },

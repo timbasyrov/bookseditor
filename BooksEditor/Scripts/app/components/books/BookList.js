@@ -118,8 +118,6 @@
         if (sort.YearOrder === '')
             delete sort.YearOrder;
 
-        console.log(sort);
-
         it.apiUrlGet('/api/book', sort, function (data) {
             it.set('Items', data);
         })

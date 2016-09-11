@@ -66,6 +66,9 @@
         else {
             it.apiUrlGet('/api/book/' + id, null, function (data) {
                 it.set('book', data);
+            }, function (data) {
+                // Request error
+                console.log(data);
             });
         }
     },
