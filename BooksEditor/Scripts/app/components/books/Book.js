@@ -7,7 +7,12 @@
             sectionTitle: 'Edit book',
             id: null,
             book: {},
-            allAuthors: []
+            allAuthors: [],
+            maxPublicationYearAllowed: function () {
+                var year = new Date();
+                // Sometimes publication of book planned in near future
+                return year.getFullYear() + 3;
+            }
         }
     },
     
@@ -93,8 +98,6 @@
                     it.NavigateTo('/books/list');
                 } else {
                     it.set('errors', data.Errors);
-                    // Operation failed
-                    console.log(data);
                 }
             }, function (data) {
                 // Request error

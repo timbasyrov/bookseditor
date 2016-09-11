@@ -68,7 +68,7 @@
                 <div class="form-group">
                     <label class="col-sm-3 control-label">Publication year *</label>
                     <div class="col-sm-6">
-                        <input name="publicationyear" type="text" class="form-control" value="{{.PublicationYear}}" data-val="true" data-val-required="Publication year can not be empty" min="1800" max="2100" />
+                        <input name="publicationyear" type="text" class="form-control" value="{{.PublicationYear}}" data-val="true" data-val-required="Publication year can not be empty" min="1800" max="{{maxPublicationYearAllowed()}}" />
                     </div>
                 </div>
             </div>

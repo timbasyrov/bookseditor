@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 
 namespace BooksEditor.Controllers
 {
@@ -11,8 +7,6 @@ namespace BooksEditor.Controllers
         // GET: Home
         public ActionResult Index()
         {
-            ViewData["SubTitle"] = "Books Editor";
-
             return View();
         }
     }

@@ -57,8 +57,6 @@
                     it.NavigateTo('/authors/list');
                 } else {
                     it.set('errors', data.Errors);
-                    // Operation failed
-                    console.log(data);
                 }
             }, function (data) {
                 // Request error
