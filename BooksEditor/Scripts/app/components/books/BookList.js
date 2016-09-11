@@ -4,10 +4,10 @@
     data: function () {
         var it = this;
         return {
-            filter: 
+            sort: 
                 {
-                    TitleOrder: null,
-                    YearOrder: null,
+                    TitleOrder: '',
+                    YearOrder: '',
                 },
             Items: [],
         };
@@ -24,13 +24,8 @@
             'onYearLabelClick'                  : $.proxy(it.onYearLabelClick, it)
         });
 
-        if (sessionStorage.getItem('TitleOrder')) {
-            it.set('filter.TitleOrder', sessionStorage.getItem('TitleOrder'));
-        }
-
-        if (sessionStorage.getItem('YearOrder')) {
-            it.set('filter.YearOrder', sessionStorage.getItem('YearOrder'));
-        }
+        it.set('sort.TitleOrder', sessionStorage.getItem('TitleOrder') ? sessionStorage.getItem('TitleOrder') : '');
+        it.set('sort.YearOrder', sessionStorage.getItem('YearOrder') ? sessionStorage.getItem('YearOrder') : '');
 
         it.getBookList();
     },
@@ -54,7 +49,6 @@
             if (data.IsSuccess) {
                 it.getBookList();
             } else {
-                // TODO: show modal window with message
                 console.log(data);
             }
         }, function (data) {
@@ -66,24 +60,25 @@
     onTitleLabelClick: function () {
         var it = this;
 
-        var titleOrder = it.get('filter.TitleOrder');
+        var titleOrder = it.get('sort.TitleOrder');
 
         switch (titleOrder) {
             case null:
+            case '':
                 titleOrder = 'asc';
                 break;
             case 'asc':
                 titleOrder = 'desc';
                 break;
             case 'desc':
-                titleOrder = null;
+                titleOrder = '';
                 break;
         }
 
-        it.set('filter.TitleOrder', titleOrder);
-        it.set('filter.YearOrder', null);
+        it.set('sort.TitleOrder', titleOrder);
+        it.set('sort.YearOrder', '');
         sessionStorage.setItem('TitleOrder', titleOrder);
-        sessionStorage.setItem('YearOrder', null);
+        sessionStorage.setItem('YearOrder', '');
 
         it.getBookList();
     },
@@ -91,24 +86,25 @@
     onYearLabelClick: function () {
         var it = this;
 
-        var yearOrder = it.get('filter.YearOrder');
+        var yearOrder = it.get('sort.YearOrder');
 
         switch (yearOrder) {
             case null:
+            case '':
                 yearOrder = 'asc';
                 break;
             case 'asc':
                 yearOrder = 'desc';
                 break;
             case 'desc':
-                yearOrder = null;
+                yearOrder = '';
                 break;
         }
 
-        it.set('filter.YearOrder', yearOrder);
-        it.set('filter.TitleOrder', null);
+        it.set('sort.YearOrder', yearOrder);
+        it.set('sort.TitleOrder', '');
         sessionStorage.setItem('YearOrder', yearOrder);
-        sessionStorage.setItem('TitleOrder', null);
+        sessionStorage.setItem('TitleOrder', '');
 
         it.getBookList();
     },
@@ -116,9 +112,15 @@
     getBookList: function () {
         var it = this;
 
-        var filter = it.get("filter");
+        var sort = it.get("sort");
+        if (sort.TitleOrder === '')
+            delete sort.TitleOrder;
+        if (sort.YearOrder === '')
+            delete sort.YearOrder;
 
-        it.apiUrlGet('/api/book', filter, function (data) {
+        console.log(sort);
+
+        it.apiUrlGet('/api/book', sort, function (data) {
             it.set('Items', data);
         })
     }

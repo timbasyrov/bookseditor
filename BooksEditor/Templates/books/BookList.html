@@ -14,12 +14,12 @@
             <table class="table table-hover">
                 <thead>
                     <tr>
-                        <th>#</th>
-                        <th on-click="onTitleLabelClick" class="clickable">Title {{#if (filter.TitleOrder == 'asc')}}&#9652;{{elseif (filter.TitleOrder == 'desc')}}&#9662;{{else}}{{/if}}</th>
+                        <th></th>
+                        <th on-click="onTitleLabelClick" class="clickable">Title {{#if (sort.TitleOrder == 'asc')}}&#9652;{{elseif (sort.TitleOrder == 'desc')}}&#9662;{{else}}{{/if}}</th>
                         <th>Authors</th>
                         <th>Page count</th>
                         <th>Publishing house</th>
-                        <th on-click="onYearLabelClick" class="clickable">Publication year {{#if (filter.YearOrder == 'asc')}}&#9652;{{elseif (filter.YearOrder == 'desc')}}&#9662;{{else}}{{/if}}</th>
+                        <th on-click="onYearLabelClick" class="clickable">Publication year {{#if (sort.YearOrder == 'asc')}}&#9652;{{elseif (sort.YearOrder == 'desc')}}&#9662;{{else}}{{/if}}</th>
                         <th>ISBN</th>
                         <th colspan="2"></th>
                     </tr>
@@ -27,11 +27,15 @@
                 <tbody>
                     {{#each Items}}
                     <tr>
-                        <td>{{.Id}}</td>
-                        <td>{{.Title}}</td>
+                        <td class="col-md-1">
+                            {{#if .ImagePath}}
+                            <img src="{{.ImagePath}}" class="img-thumbnail book-list-item-image">
+                            {{/if}}
+                        </td>
+                        <td><strong>{{.Title}}</strong></td>
                         <td>
                             {{#each .Authors}}
-                            {{.Name}} {{.Surname}}
+                            <em>{{.Name}} {{.Surname}}</em>
                             <br />
                             {{/each}}
                         </td>

@@ -41,6 +41,7 @@
       <HintPath>..\packages\System.Linq.Dynamic.1.0.6\lib\net40\System.Linq.Dynamic.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -52,13 +53,16 @@
     <Compile Include="Attributes\ISBNValidationAttribute.cs" />
     <Compile Include="Implementation\BookService.cs" />
     <Compile Include="Implementation\AuthorService.cs" />
+    <Compile Include="Implementation\FileService.cs" />
     <Compile Include="Interface\IBookService.cs" />
     <Compile Include="Interface\IAuthorService.cs" />
+    <Compile Include="Interface\IFileService.cs" />
     <Compile Include="Models\ActionResultModel.cs" />
     <Compile Include="Models\AuthorModel.cs" />
     <Compile Include="Models\BookListItemModel.cs" />
     <Compile Include="Models\BookModel.cs" />
     <Compile Include="Models\BookListRequest.cs" />
+    <Compile Include="Models\UploadFileResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

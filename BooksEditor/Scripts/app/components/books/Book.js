@@ -16,8 +16,11 @@
         var params = it.get('params');
 
         it.on({
-            'onSaveButton':             $.proxy(it.onSaveButton, it),
-            'onCancelButton':           $.proxy(it.onCancelButton, it),
+            'onSaveButton'                  : $.proxy(it.onSaveButton, it),
+            'onCancelButton'                : $.proxy(it.onCancelButton, it),
+            'onImageUploadSuccess'          : $.proxy(it.onImageUploadSuccess, it),
+            'onImageUploadError'            : $.proxy(it.onImageUploadError, it),
+            'onImageDeleteClick'            : $.proxy(it.onImageDeleteClick, it)
         });
 
         it.decorators.chosen.type.authors = {
@@ -95,6 +98,24 @@
                 console.log(data);
             });
         }
+    },
+
+    onImageUploadSuccess: function (event) {
+        var it = this;
+        console.log(event.keypath);
+
+        it.set(event.keypath + '.ImagePath', event.response.Url);
+    },
+
+    onImageUploadError: function (event) {
+        // TODO: show modal window with error message
+        console.log(event.response.Message);
+    },
+
+    onImageDeleteClick: function (event) {
+        var it = this;
+
+        it.set(event.keypath + '.ImagePath', null);
     },
 
     onCancelButton: function () {

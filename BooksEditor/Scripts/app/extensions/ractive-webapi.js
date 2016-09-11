@@ -18,6 +18,25 @@
     });
 };
 
+Ractive.prototype.apiUrlPostFile = function (url, file, onSuccess, onError) {
+    if (!file)
+        throw 'File is null';
+
+    var params = new FormData();
+    params.append('file', file);
+
+    return $.ajax({
+        method: HttpMethods.POST,
+        url: url,
+        data: params,
+        success: onSuccess,
+        error: onError,
+        cache: false,
+        contentType: false,
+        processData: false
+    });
+}
+
 Ractive.prototype.apiUrlGet = function (url, params, onSuccess, onError) {
     return this.apiUrlCall(url, HttpMethods.GET, params, onSuccess, onError);
 };

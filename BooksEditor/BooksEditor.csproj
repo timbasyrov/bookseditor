@@ -170,8 +170,10 @@
     <Content Include="Scripts\app\components\books\Book.js" />
     <Content Include="Scripts\app\components\books\BookList.js" />
     <Content Include="Scripts\app\components\NavigationPanel.js" />
+    <Content Include="Scripts\app\components\Page404.js" />
     <Content Include="Scripts\app\components\Router.js" />
     <Content Include="Scripts\app\decorators\ractive-decorators-chosen.js" />
+    <Content Include="Scripts\app\decorators\ractive-decorators-fileupload.js" />
     <Content Include="Scripts\app\decorators\ractive-decorators-unobtrusive.js" />
     <Content Include="Scripts\app\extensions\ractive-webapi.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -201,6 +203,7 @@
     <Content Include="Templates\books\Book.html" />
     <Content Include="Templates\books\BookList.html" />
     <Content Include="Templates\NavigationPanel.html" />
+    <Content Include="Templates\Page404.html" />
     <Content Include="Web.config" />
     <Content Include="Scripts\underscore.min.map" />
     <Content Include="Views\Shared\_Layout.cshtml" />
@@ -214,6 +217,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\BookController.cs" />
     <Compile Include="Controllers\AuthorController.cs" />
+    <Compile Include="Controllers\FileController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Filters\ValidationActionFilter.cs" />
     <Compile Include="Global.asax.cs">

@@ -67,6 +67,7 @@ namespace BooksEditor.App_Start
             kernel.Bind<IBookRepository>().To<BookRepository>();
             kernel.Bind<IAuthorService>().To<AuthorService>();
             kernel.Bind<IBookService>().To<BookService>();
+            kernel.Bind<IFileService>().To<FileService>();
         }
     }
 }
