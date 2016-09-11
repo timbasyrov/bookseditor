@@ -73,7 +73,13 @@
         $.validator.unobtrusive.parseDynamicContent($('#book'));
 
         if ($('#book').valid()) {
+
             var params = it.get('book');
+
+            // Remove value of first disabled element from chosen select
+            if (typeof params.Authors[0] === 'undefined') {
+                params.Authors.shift();
+            }
 
             it.apiUrlPost('/api/book/', params, function (data) {
                 if (data.IsSuccess) {

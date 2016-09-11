@@ -34,13 +34,12 @@
         var it = this;
         
         it.apiUrlDelete('/api/author/' + event.context.Id, null, function (data) {
-            console.log(data);
 
             if (data.IsSuccess) {
                 it.getAuthorList();
             } else {
-                // TODO: show modal window with message
-                console.log(data);
+                it.set('modalText', data.Errors);
+                $('#modal-dialog').modal('show');
             }
         }, function (data) {
             // Request error
