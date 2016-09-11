@@ -57,7 +57,7 @@ namespace BooksEditor.Data
                     bookEntry.PublicationYear = book.PublicationYear;
                     bookEntry.PublishingHouse = book.PublishingHouse;
                     bookEntry.ISBN = book.ISBN;
-                    bookEntry.ImagePath = book.ImagePath;
+                    bookEntry.ImageUrl = book.ImageUrl;
                 }
             }
         }

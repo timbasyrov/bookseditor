@@ -26,6 +26,6 @@ namespace BooksEditor.Services.Models
         [ISBNValidation]
         public string ISBN { get; set; }
 
-        public string ImagePath { get; set; }
+        public string ImageUrl { get; set; }
     }
 }

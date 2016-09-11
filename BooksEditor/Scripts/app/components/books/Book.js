@@ -105,9 +105,8 @@
 
     onImageUploadSuccess: function (event) {
         var it = this;
-        console.log(event.keypath);
 
-        it.set(event.keypath + '.ImagePath', event.response.Url);
+        it.set(event.keypath + '.ImageUrl', event.response.Url);
     },
 
     onImageUploadError: function (event) {
@@ -118,7 +117,7 @@
     onImageDeleteClick: function (event) {
         var it = this;
 
-        it.set(event.keypath + '.ImagePath', null);
+        it.set(event.keypath + '.ImageUrl', null);
     },
 
     onCancelButton: function () {

@@ -11,6 +11,6 @@ namespace BooksEditor.Data.Models
         public string PublishingHouse { get; set; }
         public int PublicationYear { get; set; }
         public string ISBN { get; set; }
-        public string ImagePath { get; set; }
+        public string ImageUrl { get; set; }
     }
 }

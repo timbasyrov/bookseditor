@@ -86,14 +86,14 @@
                 <div class="form-group">
                     <label class="col-sm-3 control-label">Image</label>
                     <div class="col-sm-6">
-                        {{#if (.ImagePath)}}
-                        <img src="{{.ImagePath}}" class="book-image">
+                        {{#if (.ImageUrl)}}
+                        <img src="{{.ImageUrl}}" class="book-image">
                         {{else}}
                         <p>Image not selected (max 200 kb)</p>
                         <input decorator="fileupload:{url: '/api/file/upload', maxFileSize: 204800 }" type="file" accept="image/*" on-r_fileupload_success="onImageUploadSuccess"
                                on-r_fileupload_error="onImageUploadError" />
                         {{/if}}
-                        {{#if (.ImagePath)}}
+                        {{#if (.ImageUrl)}}
                         <input class="btn btn-sm btn-danger" on-click="onImageDeleteClick" type="button" value="Delete">
                         {{/if}}
                     </div>
