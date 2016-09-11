@@ -242,10 +242,6 @@
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BooksEditor.Data.Model\BooksEditor.Data.Models.csproj">
-      <Project>{c852d484-6b7f-4b83-a58d-205d5ba28ec8}</Project>
-      <Name>BooksEditor.Data.Models</Name>
-    </ProjectReference>
     <ProjectReference Include="..\BooksEditor.Data\BooksEditor.Data.csproj">
       <Project>{e272f0c6-a377-4056-984d-1ea04d519cb5}</Project>
       <Name>BooksEditor.Data</Name>

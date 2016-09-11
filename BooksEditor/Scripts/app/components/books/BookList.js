@@ -44,8 +44,6 @@
         var it = this;
         
         it.apiUrlDelete('/api/book/' + event.context.Id, null, function (data) {
-            console.log(data);
-
             if (data.IsSuccess) {
                 it.getBookList();
             } else {

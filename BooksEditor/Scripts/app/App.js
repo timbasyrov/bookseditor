@@ -15,12 +15,12 @@
                 navigation: [
                         {
                             Title: 'Books',
-                            ImageClass: 'fa-edit',
+                            ImageClass: 'fa-book',
                             Url: '/books/list'
                         },
                         {
                             Title: 'Authors',
-                            ImageClass: 'fa-files-o',
+                            ImageClass: 'fa-user',
                             Url: '/authors/list'
                         }
                     ]
