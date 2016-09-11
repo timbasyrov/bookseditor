@@ -1,5 +1,6 @@
 ﻿// Source: http://www.fablecode.com/view?s=nE5epqhvLV
 using System.ComponentModel.DataAnnotations;
+using System.Text.RegularExpressions;
 
 namespace BooksEditor.Services.Attributes
 {
@@ -8,16 +9,21 @@ namespace BooksEditor.Services.Attributes
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
             string isbn = (string)value;
+            // string must starts with digit and ends with digit or X symbol
+            string isbnRegexPattern = @"^\d(\d|-)*[Xx0-9]$";
             bool result = false;
 
             if (!string.IsNullOrEmpty(isbn))
             {
-                if (isbn.Contains("-")) isbn = isbn.Replace("-", "");
-
-                switch (isbn.Length)
+                if (Regex.IsMatch(isbn, isbnRegexPattern))
                 {
-                    case 10: result = IsValidIsbn10(isbn); break;
-                    case 13: result = IsValidIsbn13(isbn); break;
+                    if (isbn.Contains("-")) isbn = isbn.Replace("-", "");
+
+                    switch (isbn.Length)
+                    {
+                        case 10: result = IsValidIsbn10(isbn); break;
+                        case 13: result = IsValidIsbn13(isbn); break;
+                    }
                 }
             }
             else
