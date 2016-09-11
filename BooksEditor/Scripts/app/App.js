@@ -52,6 +52,7 @@ routeConfig.AddRoute('/books/', 'Book');
 routeConfig.AddRoute('/authors/list', 'AuthorList');
 routeConfig.AddRoute('/authors/:id', 'Author');
 routeConfig.AddRoute('/authors/', 'Author');
+routeConfig.AddRoute('*', 'Page404');
 
 App.RegisterRoutes(routeConfig);
 

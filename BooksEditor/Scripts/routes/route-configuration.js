@@ -12,15 +12,15 @@ RouteConfiguration.prototype = {
     Register: function (app) {
         var it = this;
 
-        //set hashband as root for client routing; that means, that reload page won't cause 404
+        // set hashband as root for client routing; that means, that reload page won't cause 404
         page.base('/#!');
         
-        //finding default route, if multiple routes were marked as default, we take the first one.
+        // finding default route, if multiple routes were marked as default, we take the first one.
         var defaultRoute = _.find(it._routes, function (route) {
             return route.isDefault;
         });
 
-        //if no one was marked as default we take the first added route.
+        // if no one was marked as default we take the first added route.
         if (!defaultRoute) {
             defaultRoute = it._routes[0];
         };

@@ -26,3 +26,17 @@
     cursor: pointer;
     text-decoration: underline;
 }
+
+.book-image {
+    display: block;
+    width: 25%;
+    margin-bottom: 10px;
+}
+
+.book-list-item-image {
+    width: 100px;
+}
+
+.table th {
+    color: #777;
+}
