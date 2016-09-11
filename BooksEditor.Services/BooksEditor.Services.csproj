@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attributes\ISBNValidationAttribute.cs" />
+    <Compile Include="Attributes\PublicationYearValidationAttribute.cs" />
     <Compile Include="Implementation\BookService.cs" />
     <Compile Include="Implementation\AuthorService.cs" />
     <Compile Include="Implementation\FileService.cs" />
