@@ -4,6 +4,7 @@ using BooksEditor.Services;
 using BooksEditor.Data;
 using BooksEditor.Data.Models;
 using BooksEditor.Services.Models;
+using System.Linq;
 using Moq;
 
 namespace BooksEditor.Tests
@@ -29,14 +30,13 @@ namespace BooksEditor.Tests
 
             _books = new List<Book>
             {
-                new Book { Id = 1, Title = "Test book", Authors = new List<Author>() { new Author { Id = 1, Name = "Test Name", Surname = "Test Surname" } }, PageCount = 100, PublicationYear = 2016 }
+                new Book { Id = 1, Title = "Test book", Authors = new List<Author>() { _authors[0] }, PageCount = 100, PublicationYear = 1967 }
             };
 
             _mockAuthorRepository = new Mock<IAuthorRepository>();
             _mockAuthorRepository.Setup(m => m.Authors).Returns(_authors);
 
             _mockBookRepository = new Mock<IBookRepository>();
-            _mockBookRepository.Setup(m => m.Books).Returns(_books);
             _service = new AuthorService(_mockAuthorRepository.Object, _mockBookRepository.Object);
         }
 
@@ -56,6 +56,9 @@ namespace BooksEditor.Tests
         [TestMethod]
         public void Can_Delete_Author()
         {
+            // Arrange
+            _mockAuthorRepository.Setup(m => m.GetAuthor(It.IsAny<int>())).Returns((int id) => _authors.Where(b => b.Id == id).FirstOrDefault());
+
             // Act
             var result = _service.DeleteAuthor(2);
 
@@ -67,11 +70,41 @@ namespace BooksEditor.Tests
         [TestMethod]
         public void Can_Not_Delete_Sole_Author()
         {
+            // Arrange
+            _mockAuthorRepository.Setup(m => m.GetAuthor(It.IsAny<int>())).Returns((int id) => _authors.Where(b => b.Id == id).FirstOrDefault());
+            _mockBookRepository.Setup(m => m.Books).Returns(_books);
+
             // Act
             var result = _service.DeleteAuthor(1);
 
             // Assert
             Assert.IsFalse(result.IsSuccess);
+        }
+
+        [TestMethod]
+        public void Can_Not_Delete_Missing_Author()
+        {
+            // Arrange
+            _mockAuthorRepository.Setup(m => m.GetAuthor(It.IsAny<int>())).Returns((int id) => _authors.Where(b => b.Id == id).FirstOrDefault());
+
+            // Act
+            var result = _service.DeleteAuthor(9);
+
+            // Assert
+            Assert.IsFalse(result.IsSuccess);
+        }
+
+        [TestMethod]
+        public void Can_Get_Author()
+        {
+            // Arrange
+            _mockAuthorRepository.Setup(m => m.GetAuthor(It.IsAny<int>())).Returns((int id) => _authors.Where(b => b.Id == id).FirstOrDefault());
+
+            // Act
+            var result = _service.GetAuthor(2);
+
+            // Assert
+            Assert.IsNotNull(result);
         }
     }
 }
