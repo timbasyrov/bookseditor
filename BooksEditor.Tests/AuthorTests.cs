@@ -41,19 +41,6 @@ namespace BooksEditor.Tests
         }
 
         [TestMethod]
-        public void Can_Save_Valid_Author()
-        {
-            // Arrange
-            AuthorModel authorModel = new AuthorModel { Id = 4, Name = "Test Name", Surname = "Test Surname" };
-
-            // Act
-            var result = _service.SaveAuthor(authorModel);
-
-            // Assert
-            Assert.IsTrue(result.IsSuccess);
-        }
-
-        [TestMethod]
         public void Can_Delete_Author()
         {
             // Arrange
@@ -64,7 +51,7 @@ namespace BooksEditor.Tests
 
             // Assert
             _mockAuthorRepository.Verify(m => m.Delete(2));
-            Assert.IsTrue(result.IsSuccess);
+            Assert.AreEqual(ActionResultState.Ok, result.State);
         }
 
         [TestMethod]
@@ -78,7 +65,7 @@ namespace BooksEditor.Tests
             var result = _service.DeleteAuthor(1);
 
             // Assert
-            Assert.IsFalse(result.IsSuccess);
+            Assert.AreEqual(ActionResultState.Error, result.State);
         }
 
         [TestMethod]
@@ -91,7 +78,7 @@ namespace BooksEditor.Tests
             var result = _service.DeleteAuthor(9);
 
             // Assert
-            Assert.IsFalse(result.IsSuccess);
+            Assert.AreEqual(ActionResultState.NotFound, result.State);
         }
 
         [TestMethod]

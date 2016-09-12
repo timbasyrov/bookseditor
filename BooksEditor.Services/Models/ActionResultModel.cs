@@ -4,7 +4,7 @@ namespace BooksEditor.Services.Models
 {
     public class ActionResultModel
     {
-        public bool IsSuccess { get; set; }
+        public ActionResultState State { get; set; }
 
         public List<string> Errors { get; set; }
 
@@ -12,5 +12,13 @@ namespace BooksEditor.Services.Models
         {
             Errors = new List<string>();
         }
+    }
+
+    public enum ActionResultState : byte
+    {
+        Ok = 0,
+        NotFound = 1,
+
+        Error = 10
     }
 }

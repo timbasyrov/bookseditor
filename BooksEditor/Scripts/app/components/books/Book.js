@@ -66,14 +66,20 @@
         var id = it.get('id');
 
         if (id == null) {
+            // Need to initialize field Authors with empty value for valid work of chosen dropdown
+            it.set('book', { Authors: [] });
             it.set('sectionTitle', 'Add book');
         }
         else {
             it.apiUrlGet('/api/book/' + id, null, function (data) {
                 it.set('book', data);
             }, function (data) {
-                // Request error
-                console.log(data);
+                if (data.status == 404) {
+                    it.set('book', null);
+                } else {
+                    // Request error
+                    console.log(data);
+                }
             });
         }
     },
@@ -92,16 +98,20 @@
                 params.Authors.shift();
             }
 
-            it.apiUrlPost('/api/book/', params, function (data) {
-                if (data.IsSuccess) {
-                    it.set('errors', null);
-                    it.NavigateTo('/books/list');
-                } else {
-                    it.set('errors', data.Errors);
-                }
+            // Edit or add data
+            var apiUrl = params.Id ? '/api/book/' + params.Id : '/api/book';
+            var httpMethod = params.Id ? 'put' : 'post';
+
+            it.apiUrlCall(apiUrl, httpMethod, params, function (data) {
+                it.NavigateTo('/books/list');
             }, function (data) {
-                // Request error
-                console.log(data);
+                // If not found or validation errors
+                if (data.status == 404 || data.status == 422) {
+                    it.set('errors', data.responseJSON.Errors);
+                } else {
+                    // Request error
+                    console.log(data);
+                }
             });
         }
     },
@@ -113,7 +123,6 @@
     },
 
     onImageUploadError: function (event) {
-        // TODO: show modal window with error message
         console.log(event.response.Message);
     },
 

@@ -15,8 +15,8 @@
         var params = it.get('params');
 
         it.on({
-            'onSaveButton': $.proxy(it.onSaveButton, it),
-            'onCancelButton': $.proxy(it.onCancelButton, it),
+            'onSaveButton'                   : $.proxy(it.onSaveButton, it),
+            'onCancelButton'                : $.proxy(it.onCancelButton, it),
         });
 
         if (params && params.id) {
@@ -37,8 +37,12 @@
             it.apiUrlGet('/api/author/' + id, null, function (data) {
                 it.set('author', data);
             }, function (data) {
-                // Request error
-                console.log(data);
+                if (data.status == 404) {
+                    it.set('author', null);
+                } else {
+                    // Request error
+                    console.log(data);
+                }
             });
         }
     },
@@ -51,16 +55,19 @@
         if ($('#author').valid()) {
             var params = it.get('author');
 
-            it.apiUrlPost('/api/author/', params, function (data) {
-                if (data.IsSuccess) {
-                    it.set('errors', null);
-                    it.NavigateTo('/authors/list');
-                } else {
-                    it.set('errors', data.Errors);
-                }
+            // Edit or add data
+            var apiUrl = params.Id ? '/api/author/' + params.Id : '/api/author';
+            var httpMethod = params.Id ? 'put' : 'post';
+
+            it.apiUrlCall(apiUrl, httpMethod, params, function (data) {
+                it.NavigateTo('/authors/list');
             }, function (data) {
-                // Request error
-                console.log(data);
+                // If not found or validation errors
+                if (data.status == 404 || data.status == 422) {
+                    it.set('errors', data.responseJSON.Errors);
+                } else {
+                    console.log(data);
+                }
             });
         }
     },

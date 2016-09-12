@@ -7,7 +7,8 @@ namespace BooksEditor.Services
     {
         AuthorModel GetAuthor(int id);
         IEnumerable<AuthorModel> GetAuthorList();
-        ActionResultModel SaveAuthor(AuthorModel author);
+        ActionResultModel AddAuthor(AuthorModel author);
+        ActionResultModel UpdateAuthor(AuthorModel author);
         ActionResultModel DeleteAuthor(int id);
     }
 }

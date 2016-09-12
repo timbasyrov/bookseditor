@@ -2,6 +2,8 @@
 using System.Web.Http;
 using BooksEditor.Services;
 using BooksEditor.Services.Models;
+using System.Net.Http;
+using System.Net;
 
 namespace BooksEditor.Controllers
 {
@@ -21,21 +23,57 @@ namespace BooksEditor.Controllers
         }
 
         [HttpGet]
-        public BookModel GetBook(int id)
+        public HttpResponseMessage GetBook(int id)
         {
-            return _bookService.GetBook(id);
+            var book = _bookService.GetBook(id);
+
+            if (book == null)
+            {
+                return Request.CreateResponse(HttpStatusCode.NotFound, new { });
+            }
+            else
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, book);
+            }
         }
 
         [HttpPost]
-        public ActionResultModel SaveBook([FromBody]BookModel book)
+        public HttpResponseMessage AddBook([FromBody]BookModel book)
         {
-            return _bookService.SaveBook(book);
+            var result = _bookService.AddBook(book);
+
+            return Request.CreateResponse(HttpStatusCode.Created, new { });
+        }
+
+        [HttpPut]
+        public HttpResponseMessage UpdateBook(int id, [FromBody]BookModel book)
+        {
+            book.Id = id;
+            var result = _bookService.UpdateBook(book);
+
+            if (result.State == ActionResultState.NotFound)
+            {
+                return Request.CreateResponse(HttpStatusCode.NotFound, result);
+            }
+            else
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, new { });
+            }
         }
 
         [HttpDelete]
-        public ActionResultModel DeleteBook(int id)
+        public HttpResponseMessage DeleteBook(int id)
         {
-            return _bookService.DeleteBook(id);
+            var result = _bookService.DeleteBook(id);
+
+            if (result.State == ActionResultState.NotFound)
+            {
+                return Request.CreateResponse(HttpStatusCode.NotFound, result);
+            }
+            else
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, new { });
+            }
         }
     }
 }

@@ -44,14 +44,13 @@
         var it = this;
         
         it.apiUrlDelete('/api/book/' + event.context.Id, null, function (data) {
-            if (data.IsSuccess) {
-                it.getBookList();
+            it.getBookList();
+        }, function (data) {
+            if (data.status == 404) {
+                alert('Book not found');
             } else {
                 console.log(data);
             }
-        }, function (data) {
-            // Request error
-            console.log(data);
         });
     },
 

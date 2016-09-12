@@ -36,29 +36,27 @@ namespace BooksEditor.Data
             return _context.Books.FirstOrDefault(a => a.Id == id);
         }
 
-        public void Save(Book book)
+        public void Add(Book book)
         {
-            if (book.Id == 0)
-            {
                 // Get max Id value
                 book.Id = _context.Books.Count == 0 ? 1 : _context.Books.Max(a => a.Id) + 1;
 
                 _context.Books.Add(book);
-            }
-            else
-            {
-                Book bookEntry = _context.Books.FirstOrDefault(a => a.Id == book.Id);
+        }
 
-                if (bookEntry != null)
-                {
-                    bookEntry.Title = book.Title;
-                    bookEntry.Authors = book.Authors;
-                    bookEntry.PageCount = book.PageCount;
-                    bookEntry.PublicationYear = book.PublicationYear;
-                    bookEntry.PublishingHouse = book.PublishingHouse;
-                    bookEntry.ISBN = book.ISBN;
-                    bookEntry.ImageUrl = book.ImageUrl;
-                }
+        public void Update(Book book)
+        {
+            Book bookEntry = _context.Books.FirstOrDefault(a => a.Id == book.Id);
+
+            if (bookEntry != null)
+            {
+                bookEntry.Title = book.Title;
+                bookEntry.Authors = book.Authors;
+                bookEntry.PageCount = book.PageCount;
+                bookEntry.PublicationYear = book.PublicationYear;
+                bookEntry.PublishingHouse = book.PublishingHouse;
+                bookEntry.ISBN = book.ISBN;
+                bookEntry.ImageUrl = book.ImageUrl;
             }
         }
     }

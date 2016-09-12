@@ -40,24 +40,23 @@ namespace BooksEditor.Data
             return _context.Authors.FirstOrDefault(a => a.Id == id);
         }
 
-        public void Save(Author author)
+        public void Update(Author author)
         {
-            if (author.Id == 0)
-            {
-                author.Id = _context.Authors.Count == 0 ? 1 : _context.Authors.Max(a => a.Id) + 1;
+            Author authorEntry = _context.Authors.FirstOrDefault(a => a.Id == author.Id);
 
-                _context.Authors.Add(author);
-            }
-            else
+            if (authorEntry != null)
             {
-                Author authorEntry = _context.Authors.FirstOrDefault(a => a.Id == author.Id);
-
-                if (authorEntry != null)
-                {
-                    authorEntry.Name = author.Name;
-                    authorEntry.Surname = author.Surname;
-                }
+                authorEntry.Name = author.Name;
+                authorEntry.Surname = author.Surname;
             }
+        }
+
+        public void Add(Author author)
+        {
+            // Get max id
+            author.Id = _context.Authors.Count == 0 ? 1 : _context.Authors.Max(a => a.Id) + 1;
+
+            _context.Authors.Add(author);
         }
     }
 }

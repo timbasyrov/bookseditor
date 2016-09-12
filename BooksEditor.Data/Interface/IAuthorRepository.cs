@@ -8,6 +8,7 @@ namespace BooksEditor.Data
         IEnumerable<Author> Authors { get; }
         Author GetAuthor(int id);
         void Delete(int id);
-        void Save(Author author);
+        void Add(Author author);
+        void Update(Author author);
     }
 }

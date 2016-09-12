@@ -8,6 +8,7 @@ namespace BooksEditor.Data
         IEnumerable<Book> Books { get; }
         Book GetBook(int id);
         void Delete(int id);
-        void Save(Book book);
+        void Add(Book book);
+        void Update(Book book);
     }
 }

@@ -42,19 +42,6 @@ namespace BooksEditor.Tests
         }
 
         [TestMethod]
-        public void Can_Save_Valid_Book()
-        {
-            // Arrange
-            BookModel bookModel = new BookModel { Id = 5, Title = "Title 5", Authors = new int[1] { 1 }, PageCount = 300, PublicationYear = 2004, PublishingHouse = "Apress", ISBN = "1-4028-9462-7" };
-
-            // Act
-            var result = _service.SaveBook(bookModel);
-
-            // Assert
-            Assert.IsTrue(result.IsSuccess);
-        }
-
-        [TestMethod]
         public void Can_Not_Delete_Missing_Book()
         {
             // Arrange
@@ -65,7 +52,7 @@ namespace BooksEditor.Tests
 
             // Assert
             _mockBookRepository.Verify(m => m.Delete(9), Times.Never);
-            Assert.IsFalse(result.IsSuccess);
+            Assert.AreEqual(ActionResultState.NotFound, result.State);
         }
 
         [TestMethod]
@@ -92,7 +79,7 @@ namespace BooksEditor.Tests
 
             // Assert
             _mockBookRepository.Verify(m => m.Delete(1));
-            Assert.IsTrue(result.IsSuccess);
+            Assert.AreEqual(ActionResultState.Ok, result.State);
         }
 
         [TestMethod]
@@ -106,19 +93,6 @@ namespace BooksEditor.Tests
 
             // Assert
             Assert.AreEqual(3, result.First().Id);
-        }
-
-        [TestMethod]
-        public void Can_Not_Save_Book_Without_Authors()
-        {
-            // Arrange
-            BookModel bookModel = new BookModel { Id = 5, Title = "Title 5", Authors = new int[] { }, PageCount = 300, PublicationYear = 2004, PublishingHouse = "Apress", ISBN = "1-4028-9462-7" };
-
-            // Act
-            var result = _service.SaveBook(bookModel);
-
-            // Assert
-            Assert.IsFalse(result.IsSuccess);
         }
     }
 }

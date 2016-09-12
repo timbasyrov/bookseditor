@@ -78,22 +78,29 @@ namespace BooksEditor.Services
             return _mapper.Map<IEnumerable<BookListItemModel>>(books);
         }
 
-        public ActionResultModel SaveBook(BookModel bookModel)
+        public ActionResultModel AddBook(BookModel bookModel)
+        {
+            var bookEntity = _mapper.Map<Book>(bookModel);
+
+            _bookRepository.Add(bookEntity);
+            return new ActionResultModel { State = ActionResultState.Ok };
+        }
+
+        public ActionResultModel UpdateBook(BookModel bookModel)
         {
             var bookEntity = _mapper.Map<Book>(bookModel);
 
             ActionResultModel result = new ActionResultModel();
 
-            // Check if book have minimum one author
-            if (bookEntity.Authors.Count == 0)
+            if (_bookRepository.GetBook(bookEntity.Id) == null)
             {
-                result.IsSuccess = false;
-                result.Errors.Add("Book must have at least one author");
+                result.Errors.Add("Author not found");
+                result.State = ActionResultState.NotFound;
             }
             else
             {
-                _bookRepository.Save(bookEntity);
-                result.IsSuccess = true;
+                _bookRepository.Update(bookEntity);
+                result.State = ActionResultState.Ok;
             }
 
             return result;
@@ -106,12 +113,11 @@ namespace BooksEditor.Services
             if (_bookRepository.GetBook(id) != null)
             {
                 _bookRepository.Delete(id);
-                result.IsSuccess = true;
+                result.State = ActionResultState.Ok;
             }
             else
             {
-                result.IsSuccess = false;
-                result.Errors.Add("Book entity not found");
+                result.State = ActionResultState.NotFound;
             }
 
             return result;

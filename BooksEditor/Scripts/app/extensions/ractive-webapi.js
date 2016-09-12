@@ -3,13 +3,13 @@
 
     var ajaxData = params;
     
-    if (method == 'post') {
+    if (method == 'post' || method == 'put') {
         ajaxData = JSON.stringify(ajaxData);
     };
 
     return $.ajax({
         dataType: "json",
-        contentType: method == 'post'? "application/json" : "",
+        contentType: method == 'post' || method == 'put' ? "application/json" : "",
         method: method,
         url: url,
         data: ajaxData,
@@ -45,6 +45,10 @@ Ractive.prototype.apiUrlPost = function (url, params, onSuccess, onError) {
     return this.apiUrlCall(url, HttpMethods.POST, params, onSuccess, onError);
 };
 
+Ractive.prototype.apiUrlPut = function (url, params, onSuccess, onError) {
+    return this.apiUrlCall(url, HttpMethods.PUT, params, onSuccess, onError);
+};
+
 Ractive.prototype.apiUrlDelete = function (url, params, onSuccess, onError) {
     return this.apiUrlCall(url, HttpMethods.DELETE, params, onSuccess, onError);
 };
@@ -52,5 +56,6 @@ Ractive.prototype.apiUrlDelete = function (url, params, onSuccess, onError) {
 HttpMethods = {
     GET: 'get',
     POST: 'post',
+    PUT: 'put',
     DELETE: 'delete'
 };

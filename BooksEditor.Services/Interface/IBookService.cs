@@ -7,7 +7,8 @@ namespace BooksEditor.Services
     {
         BookModel GetBook(int id);
         IEnumerable<BookListItemModel> GetBookList(BookListRequest request);
-        ActionResultModel SaveBook(BookModel book);
+        ActionResultModel AddBook(BookModel book);
+        ActionResultModel UpdateBook(BookModel book);
         ActionResultModel DeleteBook(int id);
     }
 }

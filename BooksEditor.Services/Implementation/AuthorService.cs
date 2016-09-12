@@ -37,21 +37,38 @@ namespace BooksEditor.Services
             return  _mapper.Map<IEnumerable<AuthorModel>>(_authorRepository.Authors);
         }
 
-        public ActionResultModel SaveAuthor(AuthorModel authorModel)
+        public ActionResultModel AddAuthor(AuthorModel authorModel)
         {
             var authorEntity = _mapper.Map<Author>(authorModel);
 
-            _authorRepository.Save(authorEntity);
-            return new ActionResultModel { IsSuccess = true };
+            _authorRepository.Add(authorEntity);
+            return new ActionResultModel { State = ActionResultState.Ok };
+        }
+
+        public ActionResultModel UpdateAuthor(AuthorModel authorModel)
+        {
+            var authorEntity = _mapper.Map<Author>(authorModel);
+
+            ActionResultModel result = new ActionResultModel { State = ActionResultState.Ok };
+
+            if (_authorRepository.GetAuthor(authorEntity.Id) == null)
+            {
+                result.State = ActionResultState.NotFound;
+                result.Errors.Add("Author not found");
+            }
+
+            _authorRepository.Update(authorEntity);
+            return result;
         }
 
         public ActionResultModel DeleteAuthor(int id)
         {
-            ActionResultModel result = new ActionResultModel() { IsSuccess = false };
+            ActionResultModel result = new ActionResultModel();
+
             // Author has books where he is sole author
             if (_bookRepository.Books.Any(b => b.Authors.Any(a => a.Id == id) && b.Authors.Count == 1))
             {
-                result.IsSuccess = false;
+                result.State = ActionResultState.Error;
                 result.Errors.Add("This author has a book(s), where he is the sole author, so it can not be removed");
             }
             else
@@ -59,11 +76,12 @@ namespace BooksEditor.Services
                 if (_authorRepository.GetAuthor(id) != null)
                 {
                     _authorRepository.Delete(id);
-                    result.IsSuccess = true;
+                    result.State = ActionResultState.Ok;
                 }
                 else
                 {
-                    result.Errors.Add("Author entity not found");
+                    result.State = ActionResultState.NotFound;
+                    result.Errors.Add("Author not found");
                 }
             }
 

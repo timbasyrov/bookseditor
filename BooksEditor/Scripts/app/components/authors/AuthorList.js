@@ -34,16 +34,14 @@
         var it = this;
         
         it.apiUrlDelete('/api/author/' + event.context.Id, null, function (data) {
-
-            if (data.IsSuccess) {
                 it.getAuthorList();
-            } else {
-                it.set('modalText', data.Errors);
-                $('#modal-dialog').modal('show');
-            }
         }, function (data) {
-            // Request error
-            console.log(data);
+            if (data.status == 404 || data.status == 422) {
+                it.set('modalText', data.responseJSON.Errors);
+                $('#modal-dialog').modal('show');
+            } else {
+                console.log(data);
+            }
         });
     },
 
