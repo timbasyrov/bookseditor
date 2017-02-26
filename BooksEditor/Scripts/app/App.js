@@ -1,4 +1,6 @@
-﻿App = new Ractive({
+﻿Ractive.DEBUG = false;
+
+App = new Ractive({
 
     el: '#main',
     _navigationPanel: null,
