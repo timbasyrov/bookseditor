@@ -1,35 +1,59 @@
 ﻿using System;
-using System.Web;
 using System.IO;
+using Microsoft.AspNetCore.Http;
 using BooksEditor.Services.Models;
+using Microsoft.AspNetCore.Hosting;
+using System.Threading.Tasks;
 
 namespace BooksEditor.Services
 {
     public class FileService : IFileService
     {
-        public UploadFileResult UploadFile(HttpPostedFile file)
+        // TODO: move fileMaxSize to configuration
+        private readonly long fileMaxSize = 204800;
+        private IHostingEnvironment _hostingEnvironment;
+
+        public FileService(IHostingEnvironment hostingEnvironment)
+        {
+            _hostingEnvironment = hostingEnvironment;
+        }
+
+        public async Task<UploadFileResult> UploadFile(IFormFile file)
         {
             try
             {
-                if (file != null && file.ContentLength > 0)
+                if (file == null)
                 {
-                    var fileExtension = Path.GetExtension(file.FileName);
-                    // Creating quite unique filename for uploaded file
-                    var fileName = string.Format("{0}{1}", DateTime.Now.Ticks, fileExtension);
-                    var path = Path.Combine(HttpContext.Current.Server.MapPath("~/files"), fileName);
-
-                    file.SaveAs(path);
-
                     return new UploadFileResult()
                     {
-                        IsSuccess = true,
-                        Url = "/files/" + fileName
+                        IsSuccess = false,
+                        Message = "File is empty"
                     };
                 }
-                else return new UploadFileResult()
+
+                if (file.Length > fileMaxSize)
                 {
-                    IsSuccess = false,
-                    Message = "File is empty"
+                    return new UploadFileResult()
+                    {
+                        IsSuccess = false,
+                        Message = $"File size must be less then {fileMaxSize} bytes"
+                    };
+                }
+
+                var fileExtension = Path.GetExtension(file.FileName);
+                // Creating quite unique filename for uploaded file
+                var fileName = string.Format("{0}{1}", DateTime.Now.Ticks, fileExtension);
+                var path = Path.Combine(_hostingEnvironment.WebRootPath, "files", fileName);
+                    
+                using (var stream = new FileStream(path, FileMode.Create))
+                {
+                    await file.CopyToAsync(stream);
+                }
+
+                return new UploadFileResult()
+                {
+                    IsSuccess = true,
+                    Url = "/files/" + fileName
                 };
             }
             catch (Exception e)

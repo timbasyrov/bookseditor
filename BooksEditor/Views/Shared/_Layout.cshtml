@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using BooksEditor.HtmlHelpers
+@inject Microsoft.AspNetCore.Hosting.IHostingEnvironment HostingEnvironment
+<!DOCTYPE html>
 
 <html>
 <head>
@@ -6,14 +8,12 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Books Editor</title>
-    @Styles.Render("~/Content/css")
-    @Styles.Render("~/Content/plugins/bootstrap-chosen/css")
-    @RenderSection("styles", required: false)
+    <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
 </head>
 <body>
     <div id="wrapper">
-        
-        @Html.Partial("_Navigation")
+
+        @{await Html.RenderPartialAsync("_Navigation");}
 
         <div id="page-wrapper">
 
@@ -22,8 +22,11 @@
         </div>
 
     </div>
-
-    @Scripts.Render("~/bundles/main")
-    @RenderSection("scripts", required: false)
+    <environment names="Development">
+        @Bundler.Unpack(HostingEnvironment.ContentRootPath, "/js/site.min.js")
+    </environment>
+    <environment exclude="Development">
+        <script src="~/js/site.min.js" asp-append-version="true"></script>
+    </environment>
 </body>
 </html>

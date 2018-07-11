@@ -1,0 +1,102 @@
+﻿[
+  {
+    "outputFileName": "wwwroot/css/site.css",
+    "inputFiles": [
+      "wwwroot/css/bootstrap.css",
+      "wwwroot/css/bootstrap-theme.css",
+      "wwwroot/css/plugins/bootstrap-chosen/bootstrap-chosen.css",
+      "wwwroot/css/sb-admin-2.css",
+      "wwwroot/css/timeline.css",
+      "wwwroot/css/font-awesome.css",
+      "wwwroot/css/metisMenu.css",
+      "wwwroot/css/style.css"
+    ],
+    "minify": {
+      "enabled": false
+    }
+  },
+  {
+    "outputFileName": "wwwroot/css/site.min.css",
+    "inputFiles": [
+      "wwwroot/css/bootstrap.css",
+      "wwwroot/css/bootstrap-theme.css",
+      "wwwroot/css/plugins/bootstrap-chosen/bootstrap-chosen.css",
+      "wwwroot/css/sb-admin-2.css",
+      "wwwroot/css/timeline.css",
+      "wwwroot/css/font-awesome.css",
+      "wwwroot/css/metisMenu.css",
+      "wwwroot/css/style.css"
+    ],
+    "minify": {
+      "enabled": true
+    }
+  },
+  {
+    "outputFileName": "wwwroot/js/site.js",
+    "inputFiles": [
+      "wwwroot/js/jquery.js",
+      "wwwroot/js/jquery.validate.js",
+      "wwwroot/js/jquery.validate.unobtrusive.js",
+      "wwwroot/js/jquery.validate.unobtrusive.dynamic.js",
+      "wwwroot/js/chosen.jquery.js",
+      "wwwroot/js/modernizr.js",
+      "wwwroot/js/bootstrap.js",
+      "wwwroot/js/underscore.js",
+      "wwwroot/js/sb-admin-2.js",
+      "wwwroot/js/ractive.js",
+      "wwwroot/js/metisMenu.js",
+      "wwwroot/js/utils/Url.js",
+      "wwwroot/js/routes/page.js",
+      "wwwroot/js/routes/route-configuration.js",
+      "wwwroot/js/app/extensions/ractive-webapi.js",
+      "wwwroot/js/app/decorators/ractive-decorators-chosen.js",
+      "wwwroot/js/app/decorators/ractive-decorators-fileupload.js",
+      "wwwroot/js/app/decorators/ractive-decorators-unobtrusive.js",
+      "wwwroot/js/app/components/NavigationPanel.js",
+      "wwwroot/js/app/components/Page404.js",
+      "wwwroot/js/app/components/Router.js",
+      "wwwroot/js/app/components/authors/Author.js",
+      "wwwroot/js/app/components/authors/AuthorList.js",
+      "wwwroot/js/app/components/books/Book.js",
+      "wwwroot/js/app/components/books/BookList.js",
+      "wwwroot/js/app/App.js"
+    ],
+    "minify": {
+      "enabled": false
+    }
+  },
+  {
+    "outputFileName": "wwwroot/js/site.min.js",
+    "inputFiles": [
+      "wwwroot/js/jquery.js",
+      "wwwroot/js/jquery.validate.js",
+      "wwwroot/js/jquery.validate.unobtrusive.js",
+      "wwwroot/js/jquery.validate.unobtrusive.dynamic.js",
+      "wwwroot/js/chosen.jquery.js",
+      "wwwroot/js/modernizr.js",
+      "wwwroot/js/bootstrap.js",
+      "wwwroot/js/underscore.js",
+      "wwwroot/js/sb-admin-2.js",
+      "wwwroot/js/ractive.js",
+      "wwwroot/js/metisMenu.js",
+      "wwwroot/js/utils/Url.js",
+      "wwwroot/js/routes/page.js",
+      "wwwroot/js/routes/route-configuration.js",
+      "wwwroot/js/app/extensions/ractive-webapi.js",
+      "wwwroot/js/app/decorators/ractive-decorators-chosen.js",
+      "wwwroot/js/app/decorators/ractive-decorators-fileupload.js",
+      "wwwroot/js/app/decorators/ractive-decorators-unobtrusive.js",
+      "wwwroot/js/app/components/NavigationPanel.js",
+      "wwwroot/js/app/components/Page404.js",
+      "wwwroot/js/app/components/Router.js",
+      "wwwroot/js/app/components/authors/Author.js",
+      "wwwroot/js/app/components/authors/AuthorList.js",
+      "wwwroot/js/app/components/books/Book.js",
+      "wwwroot/js/app/components/books/BookList.js",
+      "wwwroot/js/app/App.js"
+    ],
+    "minify": {
+      "enabled": true
+    }
+  }
+]

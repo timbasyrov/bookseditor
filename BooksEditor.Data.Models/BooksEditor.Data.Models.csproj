@@ -4,8 +4,4 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\BooksEditor.Data.Models\BooksEditor.Data.Models.csproj" />
-  </ItemGroup>
-
 </Project>

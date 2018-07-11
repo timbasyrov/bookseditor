@@ -1,10 +1,11 @@
-﻿using System.Web;
+﻿using Microsoft.AspNetCore.Http;
 using BooksEditor.Services.Models;
+using System.Threading.Tasks;
 
 namespace BooksEditor.Services
 {
     public interface IFileService
     {
-        UploadFileResult UploadFile(HttpPostedFile file);
+        Task<UploadFileResult> UploadFile(IFormFile file);
     }
 }

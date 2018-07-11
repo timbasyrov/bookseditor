@@ -1,10 +1,9 @@
-﻿// Source: http://www.fablecode.com/view?s=nE5epqhvLV
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
 
 namespace BooksEditor.Services.Attributes
 {
-    public class ISBNValidationAttribute: ValidationAttribute
+    public class ISBNValidationAttribute : ValidationAttribute
     {
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {

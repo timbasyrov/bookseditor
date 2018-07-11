@@ -1,0 +1,54 @@
+﻿<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">Books</h1>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="row">
+            <button class="btn btn-success" on-click="onAddBookButtonClick">Add book</button>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th on-click="onTitleLabelClick" class="clickable">Title {{#if (sort.titleOrder == 'asc')}}&#9652;{{elseif (sort.titleOrder == 'desc')}}&#9662;{{else}}{{/if}}</th>
+                        <th>Authors</th>
+                        <th>Page count</th>
+                        <th>Publishing house</th>
+                        <th on-click="onYearLabelClick" class="clickable">Publication year {{#if (sort.yearOrder == 'asc')}}&#9652;{{elseif (sort.yearOrder == 'desc')}}&#9662;{{else}}{{/if}}</th>
+                        <th>ISBN</th>
+                        <th colspan="2"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each items}}
+                    <tr>
+                        <td class="col-md-1">
+                            {{#if .imageUrl}}
+                            <img src="{{.imageUrl}}" class="img-thumbnail book-list-item-image">
+                            {{/if}}
+                        </td>
+                        <td><strong>{{.title}}</strong></td>
+                        <td>
+                            {{#each .authors}}
+                            <em>{{.name}} {{.surname}}</em>
+                            <br />
+                            {{/each}}
+                        </td>
+                        <td>{{.pageCount}}</td>
+                        <td>{{.publishingHouse}}</td>
+                        <td>{{.publicationYear}}</td>
+                        <td>{{.isbn}}</td>
+                        <td><button class="btn btn-primary btn-sm" on-click="onBookEditButtonClick">Edit</button></td>
+                        <td><button class="btn btn-danger btn-sm" on-click="onDeleteButtonClick">Delete</button></td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

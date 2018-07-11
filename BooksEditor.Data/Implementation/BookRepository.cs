@@ -38,10 +38,10 @@ namespace BooksEditor.Data
 
         public void Add(Book book)
         {
-                // Get max Id value
-                book.Id = _context.Books.Count == 0 ? 1 : _context.Books.Max(a => a.Id) + 1;
+            // Get max Id value
+            book.Id = _context.Books.Count == 0 ? 1 : _context.Books.Max(a => a.Id) + 1;
 
-                _context.Books.Add(book);
+            _context.Books.Add(book);
         }
 
         public void Update(Book book)

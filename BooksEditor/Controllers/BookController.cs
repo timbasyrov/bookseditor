@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
-using System.Web.Http;
+using Microsoft.AspNetCore.Mvc;
 using BooksEditor.Services;
 using BooksEditor.Services.Models;
-using System.Net.Http;
-using System.Net;
 
 namespace BooksEditor.Controllers
 {
-    public class BookController : ApiController
+    [Route("api/[controller]")]
+    [ApiController]
+    public class BookController : ControllerBase
     {
         private readonly IBookService _bookService;
 
@@ -17,62 +17,66 @@ namespace BooksEditor.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<BookListItemModel> GetBookList([FromUri]BookListRequest request)
+        public IEnumerable<BookListItemModel> GetBookList([FromQuery]BookListRequest request)
         {
             return _bookService.GetBookList(request);
         }
 
-        [HttpGet]
-        public HttpResponseMessage GetBook(int id)
+        [HttpGet("{id}")]
+        public IActionResult GetBook(int id)
         {
             var book = _bookService.GetBook(id);
 
             if (book == null)
             {
-                return Request.CreateResponse(HttpStatusCode.NotFound, new { });
+                return NotFound(new { });
             }
             else
             {
-                return Request.CreateResponse(HttpStatusCode.OK, book);
+                return Ok(book);
             }
         }
 
         [HttpPost]
-        public HttpResponseMessage AddBook([FromBody]BookModel book)
+        public IActionResult AddBook([FromBody]BookModel book)
         {
             var result = _bookService.AddBook(book);
+            if (result.State == ActionResultState.Error)
+            {
+                return BadRequest(new { result.Errors });
+            }
 
-            return Request.CreateResponse(HttpStatusCode.Created, new { });
+            return Ok(new { });
         }
 
-        [HttpPut]
-        public HttpResponseMessage UpdateBook(int id, [FromBody]BookModel book)
+        [HttpPut("{id}")]
+        public IActionResult UpdateBook(int id, [FromBody]BookModel book)
         {
             book.Id = id;
             var result = _bookService.UpdateBook(book);
 
             if (result.State == ActionResultState.NotFound)
             {
-                return Request.CreateResponse(HttpStatusCode.NotFound, result);
+                return NotFound(new { result });
             }
             else
             {
-                return Request.CreateResponse(HttpStatusCode.OK, new { });
+                return Ok(new { });
             }
         }
 
-        [HttpDelete]
-        public HttpResponseMessage DeleteBook(int id)
+        [HttpDelete("{id}")]
+        public IActionResult DeleteBook(int id)
         {
             var result = _bookService.DeleteBook(id);
 
             if (result.State == ActionResultState.NotFound)
             {
-                return Request.CreateResponse(HttpStatusCode.NotFound, result);
+                return NotFound(result);
             }
             else
             {
-                return Request.CreateResponse(HttpStatusCode.OK, new { });
+                return Ok(new { });
             }
         }
     }
