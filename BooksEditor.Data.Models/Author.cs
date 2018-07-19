@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace BooksEditor.Data.Models
+﻿namespace BooksEditor.Data.Models
 {
     public class Author
     {

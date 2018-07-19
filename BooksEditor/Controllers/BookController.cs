@@ -31,10 +31,8 @@ namespace BooksEditor.Controllers
             {
                 return NotFound(new { });
             }
-            else
-            {
-                return Ok(book);
-            }
+
+            return Ok(book);
         }
 
         [HttpPost]
@@ -59,10 +57,8 @@ namespace BooksEditor.Controllers
             {
                 return NotFound(new { result });
             }
-            else
-            {
-                return Ok(new { });
-            }
+
+            return Ok(new { });
         }
 
         [HttpDelete("{id}")]
@@ -74,10 +70,8 @@ namespace BooksEditor.Controllers
             {
                 return NotFound(result);
             }
-            else
-            {
-                return Ok(new { });
-            }
+
+            return Ok(new { });
         }
     }
 }

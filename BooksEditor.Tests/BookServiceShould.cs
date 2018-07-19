@@ -44,7 +44,7 @@ namespace BooksEditor.Tests
         public void ReturnNotFoundResultState_WhenTryingDeleteNonExistingBook()
         {
             // Arrange
-            _mockBookRepository.Setup(m => m.GetBook(It.IsAny<int>())).Returns((int id) => _books.Where(b => b.Id == id).FirstOrDefault());
+            _mockBookRepository.Setup(m => m.GetBook(It.IsAny<int>())).Returns((int id) => _books.FirstOrDefault(b => b.Id == id));
             var missingBookId = 9;
 
             // Act
@@ -59,7 +59,7 @@ namespace BooksEditor.Tests
         public void ReturnBook_WhenCallsGetWithExistingId()
         {
             // Arrange
-            _mockBookRepository.Setup(m => m.GetBook(It.IsAny<int>())).Returns((int id) => _books.Where(b => b.Id == id).FirstOrDefault());
+            _mockBookRepository.Setup(m => m.GetBook(It.IsAny<int>())).Returns((int id) => _books.FirstOrDefault(b => b.Id == id));
 
             // Act
             var result = _service.GetBook(1);
@@ -72,7 +72,7 @@ namespace BooksEditor.Tests
         public void DeleteBook_WhenCallsDeleteWithExistingId()
         {
             // Arrange
-            _mockBookRepository.Setup(m => m.GetBook(It.IsAny<int>())).Returns((int id) => _books.Where(b => b.Id == id).FirstOrDefault());
+            _mockBookRepository.Setup(m => m.GetBook(It.IsAny<int>())).Returns((int id) => _books.FirstOrDefault(b => b.Id == id));
 
             // Act
             var result = _service.DeleteBook(1);

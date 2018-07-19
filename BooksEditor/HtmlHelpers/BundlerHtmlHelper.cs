@@ -56,7 +56,7 @@ namespace BooksEditor.HtmlHelpers
                     select b).FirstOrDefault();
         }
 
-        class Bundle
+        private class Bundle
         {
             [JsonProperty("outputFileName")]
             public string OutputFileName { get; set; }
