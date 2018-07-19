@@ -11,7 +11,7 @@ namespace BooksEditor.Services.Models
         [MaxLength(30, ErrorMessage = "Title must be less 30 symbols")]
         public string Title { get; set; }
 
-        [NotEmptyValidation (ErrorMessage = "Book must have at least one author") ]
+        [NotEmptyValidation(ErrorMessage = "Book must have at least one author") ]
         public int[] Authors { get; set; }
 
         [Required]
@@ -24,7 +24,7 @@ namespace BooksEditor.Services.Models
         [PublicationYearValidation]
         public int PublicationYear { get; set; }
 
-        [ISBNValidation]
+        [ISBNValidation(ErrorMessage = "Invalid ISBN")]
         public string ISBN { get; set; }
 
         public string ImageUrl { get; set; }

@@ -1,0 +1,50 @@
+﻿<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">{{sectionTitle}}</h1>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        {{#if errors}}
+        <div class="alert alert-danger">
+            <ul>
+                {{#each errors}}
+                <li>{{.}}</li>
+                {{/each}}
+            </ul>
+        </div>
+        {{/if}}
+
+        {{#if !author}}
+        <div class="alert alert-danger">Author not found</div>
+        {{else}}
+        <form id="author" decorator="unobtrusive">
+            {{#author}}
+            <div class="row">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Name</label>
+                    <div class="col-sm-6">
+                        <input name="name" type="text" class="form-control" value="{{.name}}" data-val="true" data-val-required="Name can not be empty" maxlength="30" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Surname</label>
+                    <div class="col-sm-6">
+                        <input name="surname" type="text" class="form-control" value="{{.surname}}" data-val="true" data-val-required="Surname can not be empty" maxlength="30" />
+                    </div>
+                </div>
+            </div>
+            {{/author}}
+
+            <div class="hr-line-dashed"></div>
+
+            <input on-click="onSaveButton" type="button" class="btn btn-primary" value="Save" />
+            <input on-click="onCancelButton" type="button" class="btn btn-danger" value="Cancel" />
+        </form>
+        {{/if}}
+    </div>
+</div>

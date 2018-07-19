@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System.Linq;
+using System.Collections.Generic;
+using AutoMapper;
 using BooksEditor.Data;
 using BooksEditor.Data.Models;
 using BooksEditor.Services.Models;
-using System.Linq;
-using AutoMapper;
 
 namespace BooksEditor.Services
 {
@@ -12,6 +12,8 @@ namespace BooksEditor.Services
         private readonly IAuthorRepository _authorRepository;
         private readonly IBookRepository _bookRepository;
         private readonly IMapper _mapper;
+        // TODO: move this option to configuration
+        private readonly int maxRecords = 50;
 
         public AuthorService(IAuthorRepository authorRepository, IBookRepository bookRepository)
         {
@@ -34,11 +36,18 @@ namespace BooksEditor.Services
 
         public IEnumerable<AuthorModel> GetAuthorList()
         {
-            return  _mapper.Map<IEnumerable<AuthorModel>>(_authorRepository.Authors);
+            return _mapper.Map<IEnumerable<AuthorModel>>(_authorRepository.Authors);
         }
 
         public ActionResultModel AddAuthor(AuthorModel authorModel)
         {
+            if (_authorRepository.Authors.Count() >= maxRecords)
+            {
+                var result = new ActionResultModel();
+                result.State = ActionResultState.Error;
+                result.Errors.Add($"Limit of {maxRecords} records is reached");
+                return result;
+            }
             var authorEntity = _mapper.Map<Author>(authorModel);
 
             _authorRepository.Add(authorEntity);
