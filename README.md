@@ -1,7 +1,6 @@
 # Books editor
 
-A simple single page application.
+Simple CRUD single page application based on ASP.NET Core MVC and ractive.js (with page.js as router).
+The goal is self-study with these technologies.
 
-Built with: Ractive.js (with page.js as router), ASP.NET Web Api 2, Bootstrap 3
-
-Demo: http://basyrov-001-site1.ctempurl.com
+Demo: https://bookseditor.timbasyrov.me
