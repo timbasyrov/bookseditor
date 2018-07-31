@@ -6,24 +6,18 @@ namespace BooksEditor.Data
 {
     public class BookRepository : IBookRepository
     {
-        private BooksEditorContext _context;
+        private readonly BooksEditorContext _context;
 
         public BookRepository()
         {
             _context = BooksEditorContext.GetInstance();
         }
 
-        public IEnumerable<Book> Books
-        {
-            get
-            {
-                return _context.Books;
-            }
-        }
+        public IEnumerable<Book> Books => _context.Books;
 
         public void Delete(int id)
         {
-            Book book = _context.Books.FirstOrDefault(a => a.Id == id);
+            var book = _context.Books.FirstOrDefault(a => a.Id == id);
 
             if (book != null)
             {
@@ -46,18 +40,17 @@ namespace BooksEditor.Data
 
         public void Update(Book book)
         {
-            Book bookEntry = _context.Books.FirstOrDefault(a => a.Id == book.Id);
+            var bookEntry = _context.Books.FirstOrDefault(a => a.Id == book.Id);
 
-            if (bookEntry != null)
-            {
-                bookEntry.Title = book.Title;
-                bookEntry.Authors = book.Authors;
-                bookEntry.PageCount = book.PageCount;
-                bookEntry.PublicationYear = book.PublicationYear;
-                bookEntry.PublishingHouse = book.PublishingHouse;
-                bookEntry.ISBN = book.ISBN;
-                bookEntry.ImageUrl = book.ImageUrl;
-            }
+            if (bookEntry == null) return;
+
+            bookEntry.Title = book.Title;
+            bookEntry.Authors = book.Authors;
+            bookEntry.PageCount = book.PageCount;
+            bookEntry.PublicationYear = book.PublicationYear;
+            bookEntry.PublishingHouse = book.PublishingHouse;
+            bookEntry.ISBN = book.ISBN;
+            bookEntry.ImageUrl = book.ImageUrl;
         }
     }
 }

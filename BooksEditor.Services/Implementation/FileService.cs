@@ -9,9 +9,9 @@ namespace BooksEditor.Services
 {
     public class FileService : IFileService
     {
-        // TODO: move fileMaxSize to configuration
-        private readonly long fileMaxSize = 204800;
-        private IHostingEnvironment _hostingEnvironment;
+        // TODO: move FileMaxSize to configuration
+        private const long FileMaxSize = 204800;
+        private readonly IHostingEnvironment _hostingEnvironment;
 
         public FileService(IHostingEnvironment hostingEnvironment)
         {
@@ -31,12 +31,12 @@ namespace BooksEditor.Services
                     };
                 }
 
-                if (file.Length > fileMaxSize)
+                if (file.Length > FileMaxSize)
                 {
                     return new UploadFileResult()
                     {
                         IsSuccess = false,
-                        Message = $"File size must be less then {fileMaxSize} bytes"
+                        Message = $"File size must be less then {FileMaxSize} bytes"
                     };
                 }
 

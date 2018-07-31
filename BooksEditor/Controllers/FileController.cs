@@ -10,7 +10,7 @@ namespace BooksEditor.Controllers
     [ApiController]
     public class FileController : ControllerBase
     {
-        private IFileService _fileService;
+        private readonly IFileService _fileService;
 
         public FileController(IFileService fileService)
         {
@@ -20,9 +20,6 @@ namespace BooksEditor.Controllers
         [HttpPost("Upload")]
         public async Task<UploadFileResult> Upload(IFormFile file)
         {
-            //var file = HttpContext.Request.Current.Request.Files.Count > 0 ?
-            //        HttpContext.Current.Request.Files[0] : null;            
-
             return await _fileService.UploadFile(file);
         }
     }

@@ -6,33 +6,26 @@ namespace BooksEditor.Data
 {
     public class AuthorRepository : IAuthorRepository
     {
-        private BooksEditorContext _context;
+        private readonly BooksEditorContext _context;
 
         public AuthorRepository()
         {
             _context = BooksEditorContext.GetInstance();
         }
 
-        public IEnumerable<Author> Authors
-        {
-            get
-            {
-                return _context.Authors;
-            }
-        }
+        public IEnumerable<Author> Authors => _context.Authors;
 
         public void Delete(int id)
         {
-            Author author = _context.Authors.FirstOrDefault(a => a.Id == id);
+            var author = _context.Authors.FirstOrDefault(a => a.Id == id);
 
-            if (author != null)
+            if (author == null) return;
+
+            foreach (var item in _context.Books.Where(b => b.Authors.Contains(author)))
             {
-                foreach (var item in _context.Books.Where(b => b.Authors.Contains(author)))
-                {
-                    item.Authors.Remove(author);
-                }
-                _context.Authors.Remove(author);
+                item.Authors.Remove(author);
             }
+            _context.Authors.Remove(author);
         }
 
         public Author GetAuthor(int id)
@@ -42,13 +35,12 @@ namespace BooksEditor.Data
 
         public void Update(Author author)
         {
-            Author authorEntry = _context.Authors.FirstOrDefault(a => a.Id == author.Id);
+            var authorEntry = _context.Authors.FirstOrDefault(a => a.Id == author.Id);
 
-            if (authorEntry != null)
-            {
-                authorEntry.Name = author.Name;
-                authorEntry.Surname = author.Surname;
-            }
+            if (authorEntry == null) return;
+
+            authorEntry.Name = author.Name;
+            authorEntry.Surname = author.Surname;
         }
 
         public void Add(Author author)

@@ -12,8 +12,8 @@ namespace BooksEditor.Services
         private readonly IAuthorRepository _authorRepository;
         private readonly IBookRepository _bookRepository;
         private readonly IMapper _mapper;
-        // TODO: move this option to configuration
-        private readonly int maxRecords = 50;
+        // TODO: move MaxRecords option to configuration
+        private const int MaxRecords = 50;
 
         public AuthorService(IAuthorRepository authorRepository, IBookRepository bookRepository)
         {
@@ -41,11 +41,11 @@ namespace BooksEditor.Services
 
         public ActionResultModel AddAuthor(AuthorModel authorModel)
         {
-            if (_authorRepository.Authors.Count() >= maxRecords)
+            if (_authorRepository.Authors.Count() >= MaxRecords)
             {
                 var result = new ActionResultModel();
                 result.State = ActionResultState.Error;
-                result.Errors.Add($"Limit of {maxRecords} records is reached");
+                result.Errors.Add($"Limit of {MaxRecords} records is reached");
                 return result;
             }
             var authorEntity = _mapper.Map<Author>(authorModel);
@@ -58,7 +58,7 @@ namespace BooksEditor.Services
         {
             var authorEntity = _mapper.Map<Author>(authorModel);
 
-            ActionResultModel result = new ActionResultModel { State = ActionResultState.Ok };
+            var result = new ActionResultModel { State = ActionResultState.Ok };
 
             if (_authorRepository.GetAuthor(authorEntity.Id) == null)
             {
@@ -72,7 +72,7 @@ namespace BooksEditor.Services
 
         public ActionResultModel DeleteAuthor(int id)
         {
-            ActionResultModel result = new ActionResultModel();
+            var result = new ActionResultModel();
 
             // Author has books where he is sole author
             if (_bookRepository.Books.Any(b => b.Authors.Any(a => a.Id == id) && b.Authors.Count == 1))

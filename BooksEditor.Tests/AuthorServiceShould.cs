@@ -43,7 +43,7 @@ namespace BooksEditor.Tests
         public void DeleteAuthor_WhenCallsDeteleAuthorWithExistingId()
         {
             // Arrange
-            _mockAuthorRepository.Setup(m => m.GetAuthor(It.IsAny<int>())).Returns((int id) => _authors.Where(b => b.Id == id).FirstOrDefault());
+            _mockAuthorRepository.Setup(m => m.GetAuthor(It.IsAny<int>())).Returns((int id) => _authors.FirstOrDefault(b => b.Id == id));
 
             // Act
             var result = _service.DeleteAuthor(2);
@@ -57,7 +57,7 @@ namespace BooksEditor.Tests
         public void NotDeleteAuthor_WhenAuthorIsSoleAuthorOfTheExistingBook()
         {
             // Arrange
-            _mockAuthorRepository.Setup(m => m.GetAuthor(It.IsAny<int>())).Returns((int id) => _authors.Where(b => b.Id == id).FirstOrDefault());
+            _mockAuthorRepository.Setup(m => m.GetAuthor(It.IsAny<int>())).Returns((int id) => _authors.FirstOrDefault(b => b.Id == id));
             _mockBookRepository.Setup(m => m.Books).Returns(_books);
 
             // Act
@@ -71,7 +71,7 @@ namespace BooksEditor.Tests
         public void DeleteAuthor_WhenCallsDeleteNonExistingAuthor()
         {
             // Arrange
-            _mockAuthorRepository.Setup(m => m.GetAuthor(It.IsAny<int>())).Returns((int id) => _authors.Where(b => b.Id == id).FirstOrDefault());
+            _mockAuthorRepository.Setup(m => m.GetAuthor(It.IsAny<int>())).Returns((int id) => _authors.FirstOrDefault(b => b.Id == id));
 
             // Act
             var result = _service.DeleteAuthor(9);
@@ -84,7 +84,7 @@ namespace BooksEditor.Tests
         public void ReturnAuthor_WhenCallsGetExistingAuthor()
         {
             // Arrange
-            _mockAuthorRepository.Setup(m => m.GetAuthor(It.IsAny<int>())).Returns((int id) => _authors.Where(b => b.Id == id).FirstOrDefault());
+            _mockAuthorRepository.Setup(m => m.GetAuthor(It.IsAny<int>())).Returns((int id) => _authors.FirstOrDefault(b => b.Id == id));
 
             // Act
             var result = _service.GetAuthor(2);

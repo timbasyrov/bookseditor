@@ -103,7 +103,7 @@ namespace BooksEditor.Services
         {
             var bookEntity = _mapper.Map<Book>(bookModel);
 
-            ActionResultModel result = new ActionResultModel();
+            var result = new ActionResultModel();
 
             if (_bookRepository.GetBook(bookEntity.Id) == null)
             {
@@ -121,7 +121,7 @@ namespace BooksEditor.Services
 
         public ActionResultModel DeleteBook(int id)
         {
-            ActionResultModel result = new ActionResultModel();
+            var result = new ActionResultModel();
 
             if (_bookRepository.GetBook(id) != null)
             {
